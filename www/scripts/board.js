@@ -80,7 +80,7 @@ myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', '
           { text: 'Cancel' },
           {
             text: '<b>Add</b>',
-            type: 'button-positive',
+            type: 'button-balanced',
             onTap: function(e) {
               if (!$scope.newPost['dollars']||!$scope.newPost['number']) {
                 $scope.message = "Please fill in all the fields."
@@ -117,11 +117,14 @@ myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', '
                     template:
                             '<strong>' + match['firstName'] + ' ' + match['lastName'] + '</strong> <br>'
                             +  offering + ' $' + match['dollars'] + '<br>'
-                            + 'number: ' + '<span ng-href="tel:' + match['number'] + '">' + match['number'] + '</span>'
+                            + 'number: ' + '<span ng-href="tel:' + match['number'] + '">' + match['number'] + '</span>',
+                    // body:
+                        okText: '', // String (default: 'OK'). The text of the OK button.
+                        okType: 'button-balanced', // String (default: 'button-positive'). The type of the OK button.
                 });
 
                 alertPopup.then(function(res) {
-                        console.log("POPUP matched with", match);
+                        console.log("matched with", match);
                     });
                 };
                 $scope.showAlert();
