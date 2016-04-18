@@ -1,5 +1,5 @@
-myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', 'sharedExercises', '$ionicPopup', '$timeout', '$firebaseAuth', 'FIREBASE_URL',
-  function($scope, $rootScope, Authentication, sharedExercises, $ionicPopup, $timeout, $firebaseAuth, FIREBASE_URL) {
+myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', 'sharedPosts', '$ionicPopup', '$timeout', '$firebaseAuth', 'FIREBASE_URL',
+  function($scope, $rootScope, Authentication, sharedPosts, $ionicPopup, $timeout, $firebaseAuth, FIREBASE_URL) {
     var ref = new Firebase(FIREBASE_URL);
     var auth = $firebaseAuth(ref);
 
@@ -8,13 +8,13 @@ myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', '
 
 
     $scope.updateGiveList = function() {
-        var giveList = sharedExercises.getGiveList();
+        var giveList = sharedPosts.getGiveList();
         $scope.giveList = giveList;
         return giveList;
     }
 
     $scope.updateGetList = function() {
-        var getList = sharedExercises.getGetList();
+        var getList = sharedPosts.getGetList();
         $scope.getList = getList;
         return getList;
 
@@ -69,24 +69,19 @@ myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', '
 
     $scope.removePost = function(firstName, lastName, listType, index) {
         
-        var verifyFirstName = sharedExercises.getFirstname();
-        var verifyLastName = sharedExercises.getLastname();
-        
+        var verifyFirstName = sharedPosts.getFirstname();
+        var verifyLastName = sharedPosts.getLastname();
+
         if (firstName == verifyFirstName && lastName == verifyLastName) {
             if (listType === 'give') {
                 console.log("removing from give");
                 $scope.giveList.splice(index, 1);
-                sharedExercises.setGiveList($scope.giveList);
-                // updateGiveList();
-                // $scope.newGiveList = $scope.giveList;
-                // $scope.$apply(function() {
-                    // $scope.giveList = $scope.giveList;
-                // })
-                // $scope.updateGiveList();
+                sharedPosts.setGiveList($scope.giveList);
+                // $scope.giveList = $scope.updateGiveList();
             }
             else if (listType === 'get') {
                 $scope.getList.splice(index, 1);
-                sharedExercises.setGetList($scope.getList);
+                sharedPosts.setGetList($scope.getList);
             }
         }
     }
@@ -117,23 +112,23 @@ myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', '
 
                 $scope.newPost.firstName = "anonymous";
                 $scope.newPost.lastName = "post";
-                if (sharedExercises.getFirstname()) {
-                    $scope.newPost.firstName = sharedExercises.getFirstname();
-                    $scope.newPost.lastName = sharedExercises.getLastname();
+                if (sharedPosts.getFirstname()) {
+                    $scope.newPost.firstName = sharedPosts.getFirstname();
+                    $scope.newPost.lastName = sharedPosts.getLastname();
                 };
                 
                 if (list === 'give') {
-                    var newGiveList = sharedExercises.getGiveList();
+                    var newGiveList = sharedPosts.getGiveList();
                     newGiveList.push($scope.newPost);
-                    sharedExercises.setGiveList(newGiveList); 
+                    sharedPosts.setGiveList(newGiveList); 
                     $scope.newGiveList = newGiveList;
                     match = matchPost(list, $scope.updateGetList(), $scope.newPost);
                     offering = 'needs';  
                 }
                 else if (list === 'get') {
-                    var newGetList = sharedExercises.getGetList();
+                    var newGetList = sharedPosts.getGetList();
                     newGetList.push($scope.newPost);
-                    sharedExercises.setGetList(newGetList);
+                    sharedPosts.setGetList(newGetList);
                     $scope.newGetList = newGetList;
                     match = matchPost(list, $scope.updateGiveList(), $scope.newPost);
                 }
