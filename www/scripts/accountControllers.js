@@ -1,8 +1,8 @@
 angular.module('starter.controllers', [])
 
 
-myApp.controller('AccountController', ['$scope', 'Authentication', 'sharedExercises', '$firebaseAuth', 'FIREBASE_URL', '$ionicPopup', '$timeout', 
-  function($scope, Authentication, sharedExercises, $firebaseAuth, FIREBASE_URL, $ionicPopup, $timeout) {
+myApp.controller('AccountController', ['$scope', 'Authentication', 'sharedPosts', '$firebaseAuth', 'FIREBASE_URL', '$ionicPopup', '$timeout', 
+  function($scope, Authentication, sharedPosts, $firebaseAuth, FIREBASE_URL, $ionicPopup, $timeout) {
   $scope.firstname;
   $scope.lastname;
 
@@ -12,8 +12,8 @@ myApp.controller('AccountController', ['$scope', 'Authentication', 'sharedExerci
   // $scope.showLoginContent = true;  
   auth.$onAuth(function(authUser) {
     if (authUser) {
-      $scope.firstname = sharedExercises.getFirstname();
-      $scope.lastname = sharedExercises.getLastname();
+      $scope.firstname = sharedPosts.getFirstname();
+      $scope.lastname = sharedPosts.getLastname();
 
       console.log("firstname", $scope.firstname, "lastname", $scope.lastname);
     }
@@ -35,9 +35,9 @@ myApp.controller('AccountController', ['$scope', 'Authentication', 'sharedExerci
   }; //login
 
   $scope.saveAccountChanges = function(newFirstname, newLastname, newEmail) {
-    sharedExercises.updateAccountFirstname(newFirstname);
-    sharedExercises.updateAccountLastname(newLastname);
-    sharedExercises.updateAccountEmail(newEmail);
+    sharedPosts.updateAccountFirstname(newFirstname);
+    sharedPosts.updateAccountLastname(newLastname);
+    sharedPosts.updateAccountEmail(newEmail);
   };
 
   // $scope.changeEmail = function(newEmail, password) {
@@ -47,7 +47,7 @@ myApp.controller('AccountController', ['$scope', 'Authentication', 'sharedExerci
 
   $scope.updateFirstname = function(newFirstname) {
     if (newFirstname) {
-      sharedExercises.updateAccountFirstname(newFirstname);
+      sharedPosts.updateAccountFirstname(newFirstname);
       $scope.firstname = newFirstname;
     }
     
@@ -55,7 +55,7 @@ myApp.controller('AccountController', ['$scope', 'Authentication', 'sharedExerci
 
   $scope.updateLastname = function(newLastname) {
     if (newLastname) {
-      sharedExercises.updateAccountLastname(newLastname);
+      sharedPosts.updateAccountLastname(newLastname);
       $scope.lastname = newLastname; 
     }
   };
