@@ -1,21 +1,36 @@
 <ion-view view-title="Account">
   <!-- </ion-header-bar> -->
-   <ion-nav-bar class="bar grey">
+   <ion-nav-bar class="bar-balanced">
     <ion-nav-buttons side="right">
     <button class="button button-clear button-dark" ng-click="logout()">Logout</button>
   </ion-nav-buttons>
 
   </ion-nav-bar>
   <ion-content>
-    <div class="list">
-		<div class="item">
+    
+    	<div class="proimg">
+    		<img class ="proimg"src="img/adam.jpg">
+    	</div>
 			<h2 class="title">{{firstname}} {{lastname}}</h2>
 
-			<!-- Add offline capabilities!
-			https://www.firebase.com/docs/web/guide/offline-capabilities.html -->
 
+		<div class="item item-input-inset" style="padding-left: 24%;">
+                        <button class="button" 
+                                style="width:100px;"
+                                ng-click="settings=true;matchings=true"
+    							>
+                            Matchings
+                        </button>
+                        <button class="button balanced" 
+                                 style="width:100px;"
+                                 ng-click="settings=false; matchings=True"
+                                 >
+                            Settings
+                        </button>
+                    </div>
+  
 
-		</div>
+	<div class="list" ng-hide="settings" >
 		<div class="item item-input-inset">
 		   	<label class="item-input-wrapper">
 		      	<input type="text" placeholder="Change First Name" ng-model="newFirstname" class="inputIndent">
@@ -52,6 +67,17 @@
 		 <!-- <div class="bottom">Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
  -->
 	</div>
+
+	<div class="list" ng-show="matchings" ng-click="matchings=!matchings">
+		<ion-list>
+		  <ion-item ng-repeat="item in items">
+		    {{item}}
+		  </ion-item>
+		</ion-list>
+	</div>
+
+
+
   </ion-content>
 </ion-view>
 

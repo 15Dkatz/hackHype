@@ -34,7 +34,16 @@ z-index: 1000;
 .float-button .content:active{
 	color: #33CD5F;
 }
+.butts{
+	margin: 0 auto;
+}
 
-.test{
-	color: red;
+.proimg{
+	height: 200px;
+	width: 200px;
+	border-radius: 100px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px; 
+	margin-bottom: 15px;
 }
