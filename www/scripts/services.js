@@ -1,4 +1,4 @@
-myApp.service('sharedExercises', ['FIREBASE_URL', '$rootScope', '$firebaseAuth', function(FIREBASE_URL, $rootScope, $firebaseAuth) {
+myApp.service('sharedPosts', ['FIREBASE_URL', '$rootScope', '$firebaseAuth', function(FIREBASE_URL, $rootScope, $firebaseAuth) {
   var ref = new Firebase(FIREBASE_URL);
   var auth = $firebaseAuth(ref);
   var boardListRef, userRef;

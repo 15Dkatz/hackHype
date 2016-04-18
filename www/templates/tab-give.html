@@ -1,19 +1,23 @@
 <ion-view view-title="Give" >
+  <ion-nav-buttons side="left">
+    <button class="button button-clear icon-left ion-minus-circled" ng-click="data.shouldShowDelete = !data.shouldShowDelete"></button>
+  </ion-nav-buttons>
   <ion-nav-bar class="bar-balanced">
     <ion-nav-buttons side="right">
        <button class="button button-clear icon-left ion-gear-a" ng-click=""></button>
     </ion-nav-buttons>
   </ion-nav-bar>
   <ion-content class="">
-    <ion-list class="list">
+    <ion-list class="list" show-delete="data.shouldShowDelete">
       <ion-item ng-repeat="post in updateGiveList() track by $index" class="item icon-left">
       ${{post.dollars}} &nbsp;&nbsp;&nbsp; <span ng-href=" {{post.number}}">{{post.number}}</span> &nbsp;&nbsp;&nbsp; {{post.firstName}} {{post.lastName}}
+      <ion-delete-button class="ion-minus-circled" ng-click="removePost(post.firstName, post.lastName, 'give', $index)"></ion-delete-button>
       </ion-item>
     </ion-list>
 
   </div>
   </ion-content>
-  
+
  <div class="float-button">
  <span class="height-fix">
     <a class="content">

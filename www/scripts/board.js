@@ -63,6 +63,34 @@ myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', '
         return bestMatch;
     }
 
+    $scope.data = {
+        shouldShowDelete: false
+    }
+
+    $scope.removePost = function(firstName, lastName, listType, index) {
+        
+        var verifyFirstName = sharedExercises.getFirstname();
+        var verifyLastName = sharedExercises.getLastname();
+        
+        if (firstName == verifyFirstName && lastName == verifyLastName) {
+            if (listType === 'give') {
+                console.log("removing from give");
+                $scope.giveList.splice(index, 1);
+                sharedExercises.setGiveList($scope.giveList);
+                // updateGiveList();
+                // $scope.newGiveList = $scope.giveList;
+                // $scope.$apply(function() {
+                    // $scope.giveList = $scope.giveList;
+                // })
+                // $scope.updateGiveList();
+            }
+            else if (listType === 'get') {
+                $scope.getList.splice(index, 1);
+                sharedExercises.setGetList($scope.getList);
+            }
+        }
+    }
+
     $scope.addPost = function(list) {
         $scope.message = '';
         var match;
