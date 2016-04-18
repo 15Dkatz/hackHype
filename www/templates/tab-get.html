@@ -1,0 +1,16 @@
+<ion-view view-title="Get" >
+  <ion-nav-bar class="bar-stable">
+    <ion-nav-buttons side="right">
+      <button class="button button-clear icon-left ion-plus-circled" ng-click="addPost('get')"></button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+
+  <ion-content class="">
+    <ion-list class="">
+      <ion-item ng-repeat="post in updateGetList() track by $index" class="item icon-left">
+      ${{post.dollars}} &nbsp;&nbsp;&nbsp; <span ng-href="tel: {{post.number}}">{{post.number}}</span> &nbsp;&nbsp;&nbsp; {{post.firstName}} {{post.lastName}}
+      </ion-item>
+    </ion-list>
+  </div>
+  </ion-content>
+</ion-view>
