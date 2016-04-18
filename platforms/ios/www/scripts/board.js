@@ -1,49 +1,22 @@
-myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', 'sharedExercises', '$ionicPopup', '$timeout', '$firebaseAuth', 'FIREBASE_URL',
-  function($scope, $rootScope, Authentication, sharedExercises, $ionicPopup, $timeout, $firebaseAuth, FIREBASE_URL) {
+myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', 'sharedPosts', '$ionicPopup', '$timeout', '$firebaseAuth', 'FIREBASE_URL',
+  function($scope, $rootScope, Authentication, sharedPosts, $ionicPopup, $timeout, $firebaseAuth, FIREBASE_URL) {
     var ref = new Firebase(FIREBASE_URL);
     var auth = $firebaseAuth(ref);
 
-    // $scope.test = "30$ from Zoe";
-    $scope.giveList = [];
-    $scope.getList = [];
+    $scope.giveList = sharedPosts.loadGiveList();
+    $scope.getList = sharedPosts.loadGetList();
 
-
-    // auth.$onAuth(function(authUser) {
-    //     updateLists();
-    // });
-
-
-
-    // var updateLists = function() {
-    //     // setTimeout(function() {
-    //     //     // var giveList = sharedExercises.getGiveList();
-    //     //     // $scope.giveList = giveList;
-    //     //     updateGiveList();
-    //     //     // var getList = sharedExercises.getGetList();
-    //     //     // $scope.getList = getList;
-    //     //     updateGetList();
-    //     // }, 600);
-    //     setTimeout(function() {
-    //         // var giveList = sharedExercises.getGiveList();
-    //         // $scope.giveList = giveList;
-    //         $scope.updateGiveList();
-    //         // var getList = sharedExercises.getGetList();
-    //         // $scope.getList = getList;
-    //         $scope.updateGetList();
-    //     }, 1000);
-    // }
 
     $scope.updateGiveList = function() {
-        var giveList = sharedExercises.getGiveList();
+        var giveList = sharedPosts.getGiveList();
         $scope.giveList = giveList;
+
         return giveList;
     }
 
     $scope.updateGetList = function() {
-        var getList = sharedExercises.getGetList();
+        var getList = sharedPosts.getGetList();
         $scope.getList = getList;
-        // check a console log.
-        // console.log("getList from updateGetList", getList);
         return getList;
 
     }
@@ -52,9 +25,6 @@ myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', '
     var matchPost = function(listType, list, post) {
         var match;
         var bestMatch = list[0];
-
-        // find lowest match first;
-        
 
         if (listType === 'give') {
             for (var l=0; l<list.length; l++) {
@@ -68,7 +38,7 @@ myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', '
                 if (post['dollars']>=list[i]['dollars']) {
                     console.log(list[i]['dollars'], "found it ccc!");
                     match = list[i];
-                    // i = list.length;   
+ 
                     if (match['dollars']>bestMatch['dollars']) {
                         bestMatch = match;
                     }
@@ -78,14 +48,11 @@ myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', '
         } 
         else if (listType === 'get')
         {
-            // return a givePost
-            // console.
             var i = 0;
             while (i<list.length) {
                 if (post['dollars']<=list[i]['dollars']) {
                     console.log(list[i]['dollars'], "found it!");
                     match = list[i];
-                    // i = list.length;
                     if (match['dollars']>bestMatch['dollars']) {
                         bestMatch = match;
                     }
@@ -97,71 +64,144 @@ myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', '
         return bestMatch;
     }
 
+    $scope.data = {
+        listCanSwipe: true
+
+
+
+        // post shouldShowDelete
+    }
+
+    $scope.toggleShowDelete = function(listType, firstName, lastName) {
+        $scope.data.shouldShowDelete = !$scope.data.shouldShowDelete;
+        var verifyFirstName = sharedPosts.getFirstname();
+        var verifyLastName = sharedPosts.getLastname();
+
+
+        if (listType === 'give') {
+            // go through giveList
+            // iterate through giveList
+            
+            console.log("vfn tsd", verifyFirstName, "vfln", verifyLastName);
+            // iterate through list and set post deleteText to true if name matches
+            for (var i=0; i<$scope.giveList.length; i++) {
+                if ($scope.giveList[i]["firstName"] == verifyFirstName && $scope.giveList[i]["lastName"] == verifyLastName) {
+                    $scope.giveList[i]["listProperty"] = "minus-circled button-assertive";
+                    // console.log("verified firstName", verifyFirstName, " lastName", verifyLastName);
+                } else {
+                    // false edit
+                    $scope.giveList[i]["listProperty"] = "";
+                }
+            }
+
+            // sharedPosts.setGiveList($scope.giveList);
+        //     // find matching names
+        //     // if so, shouldShowDelete
+        }
+        else if (listType === 'get') {
+            // respective get list
+            console.log("vfn tsd", verifyFirstName, "vfln", verifyLastName);
+            // iterate through list and set post deleteText to true if name matches
+            for (var i=0; i<$scope.getList.length; i++) {
+                if ($scope.getList[i]["firstName"] == verifyFirstName && $scope.getList[i]["lastName"] == verifyLastName) {
+                    $scope.getList[i]["listProperty"] = "minus-circled button-assertive";
+                    // console.log("verified firstName", verifyFirstName, " lastName", verifyLastName);
+                } else {
+                    $scope.getList[i]["listProperty"] = "";
+                }
+            }
+
+
+        }
+    }
+
+    $scope.removePost = function(firstName, lastName, listType, index) {
+        
+        var verifyFirstName = sharedPosts.getFirstname();
+        var verifyLastName = sharedPosts.getLastname();
+
+        if (firstName == verifyFirstName && lastName == verifyLastName) {
+            if (listType === 'give') {
+                console.log("removing from give");
+                $scope.giveList.splice(index, 1);
+                sharedPosts.setGiveList($scope.giveList);
+                // $scope.giveList = $scope.updateGiveList();
+            }
+            else if (listType === 'get') {
+                $scope.getList.splice(index, 1);
+                sharedPosts.setGetList($scope.getList);
+            }
+        }
+    }
+
+    // change showDelete to a method that toggles shouldShowDelete {
+        // showsDelete on posts that have matching names
+    // }
+
     $scope.addPost = function(list) {
-        // popup template for new Exercise
+        $scope.message = '';
         var match;
         var offering = 'offering';
         console.log("addPost giveList", $scope.giveList);
         $scope.newPost = {};
         var myPopup = $ionicPopup.show({
-        template: "<input class='inputIndent' placeholder=' Flexi Dollars' type='number' ng-model='newPost.dollars'><input class='inputIndent' placeholder=' Phone Number' type='tel' ng-model='newPost.number'>",
+        template: "<input class='inputIndent' placeholder=' Flexi Dollars' type='number' ng-model='newPost.dollars'>" + 
+                  "<input class='inputIndent' placeholder=' Phone Number' type='tel' ng-model='newPost.number'>" + 
+                  "{{message}}"
+                           ,
         title: 'Post Offer',
         scope: $scope,
         buttons: [
           { text: 'Cancel' },
           {
             text: '<b>Add</b>',
-            type: 'button-positive',
+            type: 'button-balanced',
             onTap: function(e) {
-              if (!$scope.newPost) {
+              if (!$scope.newPost['dollars']||!$scope.newPost['number']) {
+                $scope.message = "Please fill in all the fields."
                 e.preventDefault();
               } else {
 
                 $scope.newPost.firstName = "anonymous";
                 $scope.newPost.lastName = "post";
-                if (sharedExercises.getFirstname()) {
-                    $scope.newPost.firstName = sharedExercises.getFirstname();
-                    $scope.newPost.lastName = sharedExercises.getLastname();
+                if (sharedPosts.getFirstname()) {
+                    $scope.newPost.firstName = sharedPosts.getFirstname();
+                    $scope.newPost.lastName = sharedPosts.getLastname();
                 };
                 
                 if (list === 'give') {
-                    var newGiveList = sharedExercises.getGiveList();
+                    var newGiveList = sharedPosts.getGiveList();
                     newGiveList.push($scope.newPost);
-                    sharedExercises.setGiveList(newGiveList); 
+                    sharedPosts.setGiveList(newGiveList); 
                     $scope.newGiveList = newGiveList;
                     match = matchPost(list, $scope.updateGetList(), $scope.newPost);
                     offering = 'needs';  
                 }
                 else if (list === 'get') {
-                    var newGetList = sharedExercises.getGetList();
+                    var newGetList = sharedPosts.getGetList();
                     newGetList.push($scope.newPost);
-                    sharedExercises.setGetList(newGetList);
+                    sharedPosts.setGetList(newGetList);
                     $scope.newGetList = newGetList;
                     match = matchPost(list, $scope.updateGiveList(), $scope.newPost);
-                    // offering = 'offering';  
                 }
 
-                // console.log("adding post", list);
                 $scope.match = match;
-                // if (match) {
-                // console.log(attempting mat)
-                    $scope.showAlert = function() {
-                    var alertPopup = $ionicPopup.alert({
-                        title: 'Matched with',
-                        template:
-                                '<strong>' + match['firstName'] + ' ' + match['lastName'] + '</strong> <br>'
-                                +  offering + ' $' + match['dollars'] + '<br>'
-                                + 'number: ' + '<span ng-href="tel:' + match['number'] + '">' + match['number'] + '</span>'
+                $scope.showAlert = function() {
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Matched with',
+                    template:
+                            '<strong>' + match['firstName'] + ' ' + match['lastName'] + '</strong> <br>'
+                            +  offering + ' $' + match['dollars'] + '<br>'
+                            + 'number: ' + '<span ng-href="tel:' + match['number'] + '">' + match['number'] + '</span>',
+                    // body:
+                        okText: '', // String (default: 'OK'). The text of the OK button.
+                        okType: 'button-balanced', // String (default: 'button-positive'). The type of the OK button.
+                });
 
-                        // template: 'It might taste good'
+                alertPopup.then(function(res) {
+                        console.log("matched with", match);
                     });
-
-                    alertPopup.then(function(res) {
-                            console.log("POPUP matched with", match);
-                        });
-                    };
-                // }
-
+                };
                 $scope.showAlert();
               } // end of else
             }
@@ -176,16 +216,7 @@ myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', '
         $timeout(function() {
            myPopup.close(); 
         }, 30000);
-
-        
-        // updateLists();
-
-    
     }
-
-
-
-
 }]); // Controller
 
 
@@ -193,3 +224,5 @@ myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', '
 // add matching
 
 // phone number and dollar amount mandatory to add!
+
+// why do the poup indents not show two spaces??

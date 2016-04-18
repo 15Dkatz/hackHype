@@ -1,4 +1,9 @@
 <ion-view view-title="Get" >
+  <ion-nav-buttons side="left">
+    <button class="button button-clear icon-left ion-minus-circled" 
+    ng-click="toggleShowDelete('get')"
+    ></button>
+  </ion-nav-buttons>
   <ion-nav-bar class="bar-balanced">
     <ion-nav-buttons side="right">
       <button class="button button-clear icon-left ion-gear-a" ng-click=""></button>
@@ -6,9 +11,12 @@
   </ion-nav-bar>
 
   <ion-content class="">
-    <ion-list class="">
+    <ion-list class="" show-delete="data.shouldShowDelete">
       <ion-item ng-repeat="post in updateGetList() track by $index" class="item icon-left">
       ${{post.dollars}} &nbsp;&nbsp;&nbsp; <span ng-href="tel: {{post.number}}">{{post.number}}</span> &nbsp;&nbsp;&nbsp; {{post.firstName}} {{post.lastName}}
+      <ion-delete-button class="ion-{{post.listProperty}}" ng-click="removePost(post.firstName, post.lastName, 'get', $index)"></ion-delete-button>
+
+<!-- adding a comment -->
       </ion-item>
     </ion-list>
   </div>
