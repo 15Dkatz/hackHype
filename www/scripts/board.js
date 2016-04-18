@@ -11,8 +11,6 @@ myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', '
         var giveList = sharedPosts.getGiveList();
         $scope.giveList = giveList;
 
-        
-
         return giveList;
     }
 
@@ -76,32 +74,45 @@ myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', '
 
     $scope.toggleShowDelete = function(listType, firstName, lastName) {
         $scope.data.shouldShowDelete = !$scope.data.shouldShowDelete;
+        var verifyFirstName = sharedPosts.getFirstname();
+        var verifyLastName = sharedPosts.getLastname();
 
 
         if (listType === 'give') {
             // go through giveList
             // iterate through giveList
-            var verifyFirstName = sharedPosts.getFirstname();
-            var verifyLastName = sharedPosts.getLastname();
-
+            
             console.log("vfn tsd", verifyFirstName, "vfln", verifyLastName);
             // iterate through list and set post deleteText to true if name matches
             for (var i=0; i<$scope.giveList.length; i++) {
                 if ($scope.giveList[i]["firstName"] == verifyFirstName && $scope.giveList[i]["lastName"] == verifyLastName) {
-                    $scope.giveList[i]["listProperty"] = "minus-circled";
+                    $scope.giveList[i]["listProperty"] = "minus-circled button-assertive";
                     // console.log("verified firstName", verifyFirstName, " lastName", verifyLastName);
                 } else {
-
+                    // false edit
+                    $scope.giveList[i]["listProperty"] = "";
                 }
             }
 
-            sharedPosts.setGiveList($scope.giveList);
+            // sharedPosts.setGiveList($scope.giveList);
         //     // find matching names
         //     // if so, shouldShowDelete
         }
-        // else if (listType === 'get') {
-        //     // respective get list
-        // }
+        else if (listType === 'get') {
+            // respective get list
+            console.log("vfn tsd", verifyFirstName, "vfln", verifyLastName);
+            // iterate through list and set post deleteText to true if name matches
+            for (var i=0; i<$scope.getList.length; i++) {
+                if ($scope.getList[i]["firstName"] == verifyFirstName && $scope.getList[i]["lastName"] == verifyLastName) {
+                    $scope.getList[i]["listProperty"] = "minus-circled button-assertive";
+                    // console.log("verified firstName", verifyFirstName, " lastName", verifyLastName);
+                } else {
+                    $scope.getList[i]["listProperty"] = "";
+                }
+            }
+
+
+        }
     }
 
     $scope.removePost = function(firstName, lastName, listType, index) {
