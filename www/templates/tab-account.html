@@ -7,21 +7,25 @@
   </ion-nav-bar>
   <ion-content>
     	<div class="proimg">
-    		<img class ="proimg"src="img/adam.jpg">
+    		<img class ="proimg"src="img/default_prof.png">
     	</div>
 			<h2 class="title">{{firstname}} {{lastname}}</h2>
-		<div class="item item-input-inset" style="padding-left: 24%;">
-                        <button class="button" 
-                                style="width:100px;"
-                                ng-click="settings=true;matchings=true">
-                            Matchings
-                        </button>
-                        <button class="button balanced" 
-                                 style="width:100px;"
-                                 ng-click="settings=false; matchings=True">
-                            Settings
-                        </button>
-                    </div>
+		<!-- <div class="buttonSetOuter"> -->
+		<div class="item item-input-inset">
+            <div class="buttonSet">
+	            <button class="button .buttonSpace" 
+	                    style="width:100px;"
+	                    ng-click="settings=true;matchings=true">
+	                Matchings
+	            </button>
+	            <button class="button .buttonSpace balanced" 
+	                     style="width:100px;"
+	                     ng-click="settings=false; matchings=True">
+	                Settings
+	            </button>
+            </div>
+        </div>
+        <!-- </div> -->
 	<div class="list" ng-hide="settings" >
 		<div class="item item-input-inset">
 		   	<label class="item-input-wrapper">
