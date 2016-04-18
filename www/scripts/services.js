@@ -55,6 +55,36 @@ myApp.service('sharedPosts', ['FIREBASE_URL', '$rootScope', '$firebaseAuth', fun
       return giveList;
     },
 
+    loadGiveList: function() {
+      boardListRef = new Firebase(FIREBASE_URL);
+      if (boardListRef) {
+          boardListRef.once("value", function(snapshot) {
+              if (snapshot.exists()) {
+                  giveList = snapshot.val()["giveList"];
+                  // getList = snapshot.val()["getList"];
+              }
+          }, function(errorObject) {
+              console.log("The read failed: ", errorObject.code);
+          });
+      }
+      return giveList;
+    },
+
+    loadGetList: function() {
+      boardListRef = new Firebase(FIREBASE_URL);
+      if (boardListRef) {
+          boardListRef.once("value", function(snapshot) {
+              if (snapshot.exists()) {
+                  // giveList = snapshot.val()["giveList"];
+                  getList = snapshot.val()["getList"];
+              }
+          }, function(errorObject) {
+              console.log("The read failed: ", errorObject.code);
+          });
+      }
+      return getList;
+    },
+
     getGetList: function() {
       return getList;
     },

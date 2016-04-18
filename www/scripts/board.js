@@ -3,13 +3,16 @@ myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', '
     var ref = new Firebase(FIREBASE_URL);
     var auth = $firebaseAuth(ref);
 
-    $scope.giveList = [];
-    $scope.getList = [];
+    $scope.giveList = sharedPosts.loadGiveList();
+    $scope.getList = sharedPosts.loadGetList();
 
 
     $scope.updateGiveList = function() {
         var giveList = sharedPosts.getGiveList();
         $scope.giveList = giveList;
+
+        
+
         return giveList;
     }
 
@@ -64,7 +67,41 @@ myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', '
     }
 
     $scope.data = {
-        shouldShowDelete: false
+        listCanSwipe: true
+
+
+
+        // post shouldShowDelete
+    }
+
+    $scope.toggleShowDelete = function(listType, firstName, lastName) {
+        $scope.data.shouldShowDelete = !$scope.data.shouldShowDelete;
+
+
+        if (listType === 'give') {
+            // go through giveList
+            // iterate through giveList
+            var verifyFirstName = sharedPosts.getFirstname();
+            var verifyLastName = sharedPosts.getLastname();
+
+            console.log("vfn tsd", verifyFirstName, "vfln", verifyLastName);
+            // iterate through list and set post deleteText to true if name matches
+            for (var i=0; i<$scope.giveList.length; i++) {
+                if ($scope.giveList[i]["firstName"] == verifyFirstName && $scope.giveList[i]["lastName"] == verifyLastName) {
+                    $scope.giveList[i]["listProperty"] = "minus-circled";
+                    // console.log("verified firstName", verifyFirstName, " lastName", verifyLastName);
+                } else {
+
+                }
+            }
+
+            sharedPosts.setGiveList($scope.giveList);
+        //     // find matching names
+        //     // if so, shouldShowDelete
+        }
+        // else if (listType === 'get') {
+        //     // respective get list
+        // }
     }
 
     $scope.removePost = function(firstName, lastName, listType, index) {
@@ -85,6 +122,10 @@ myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', '
             }
         }
     }
+
+    // change showDelete to a method that toggles shouldShowDelete {
+        // showsDelete on posts that have matching names
+    // }
 
     $scope.addPost = function(list) {
         $scope.message = '';
@@ -172,3 +213,5 @@ myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', '
 // add matching
 
 // phone number and dollar amount mandatory to add!
+
+// why do the poup indents not show two spaces??
