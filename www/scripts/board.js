@@ -53,11 +53,20 @@ myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', '
         var match;
         var bestMatch = list[0];
 
+        // find lowest match first;
+        
+
         if (listType === 'give') {
+            for (var l=0; l<list.length; l++) {
+            if (list[l]['dollars'] < bestMatch['dollars']) {
+                bestMatch = list[l];
+            }    
+                console.log(list[l]['dollars']);
+            }
             var i = 0;
             while (i<list.length) {
-                if (list[i]['dollars']>=post['dollars']) {
-                    console.log(list[i]['dollars'], "found it!");
+                if (post['dollars']>=list[i]['dollars']) {
+                    console.log(list[i]['dollars'], "found it ccc!");
                     match = list[i];
                     // i = list.length;   
                     if (match['dollars']>bestMatch['dollars']) {
@@ -70,13 +79,14 @@ myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', '
         else if (listType === 'get')
         {
             // return a givePost
+            // console.
             var i = 0;
             while (i<list.length) {
-                if (list[i]['dollars']<=post['dollars']) {
+                if (post['dollars']<=list[i]['dollars']) {
                     console.log(list[i]['dollars'], "found it!");
                     match = list[i];
                     // i = list.length;
-                    if (match['dollars']<bestMatch['dollars']) {
+                    if (match['dollars']>bestMatch['dollars']) {
                         bestMatch = match;
                     }
                 }
@@ -90,6 +100,7 @@ myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', '
     $scope.addPost = function(list) {
         // popup template for new Exercise
         var match;
+        var offering = 'offering';
         console.log("addPost giveList", $scope.giveList);
         $scope.newPost = {};
         var myPopup = $ionicPopup.show({
@@ -105,6 +116,7 @@ myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', '
               if (!$scope.newPost) {
                 e.preventDefault();
               } else {
+
                 $scope.newPost.firstName = "anonymous";
                 $scope.newPost.lastName = "post";
                 if (sharedExercises.getFirstname()) {
@@ -117,33 +129,43 @@ myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', '
                     newGiveList.push($scope.newPost);
                     sharedExercises.setGiveList(newGiveList); 
                     $scope.newGiveList = newGiveList;
-                    match = matchPost(list, $scope.updateGetList(), $scope.newPost);  
+                    match = matchPost(list, $scope.updateGetList(), $scope.newPost);
+                    offering = 'needs';  
                 }
                 else if (list === 'get') {
                     var newGetList = sharedExercises.getGetList();
                     newGetList.push($scope.newPost);
                     sharedExercises.setGetList(newGetList);
-                    $scope.getList = newGetList;
+                    $scope.newGetList = newGetList;
                     match = matchPost(list, $scope.updateGiveList(), $scope.newPost);
+                    // offering = 'offering';  
                 }
+
                 // console.log("adding post", list);
                 $scope.match = match;
-                if (match) {
+                // if (match) {
+                // console.log(attempting mat)
                     $scope.showAlert = function() {
                     var alertPopup = $ionicPopup.alert({
-                        title: 'Don\'t eat that!',
-                        template: 'match {{match}}'
+                        title: 'Matched with',
+                        template:
+                                '<strong>' + match['firstName'] + ' ' + match['lastName'] + '</strong> <br>'
+                                +  offering + ' $' + match['dollars'] + '<br>'
+                                + 'number: ' + '<span ng-href="tel:' + match['number'] + '">' + match['number'] + '</span>'
+
                         // template: 'It might taste good'
                     });
 
                     alertPopup.then(function(res) {
-                            console.log("matched with", match);
+                            console.log("POPUP matched with", match);
                         });
                     };
-                }
-              }
+                // }
+
+                $scope.showAlert();
+              } // end of else
             }
-          }
+          } //end of buttons second argument
          ]
         });
 
@@ -169,3 +191,5 @@ myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', '
 
 // put add anonymous option if not logged in.
 // add matching
+
+// phone number and dollar amount mandatory to add!
