@@ -3,35 +3,9 @@ myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', '
     var ref = new Firebase(FIREBASE_URL);
     var auth = $firebaseAuth(ref);
 
-    // $scope.test = "30$ from Zoe";
     $scope.giveList = [];
     $scope.getList = [];
 
-
-    // auth.$onAuth(function(authUser) {
-    //     updateLists();
-    // });
-
-
-
-    // var updateLists = function() {
-    //     // setTimeout(function() {
-    //     //     // var giveList = sharedExercises.getGiveList();
-    //     //     // $scope.giveList = giveList;
-    //     //     updateGiveList();
-    //     //     // var getList = sharedExercises.getGetList();
-    //     //     // $scope.getList = getList;
-    //     //     updateGetList();
-    //     // }, 600);
-    //     setTimeout(function() {
-    //         // var giveList = sharedExercises.getGiveList();
-    //         // $scope.giveList = giveList;
-    //         $scope.updateGiveList();
-    //         // var getList = sharedExercises.getGetList();
-    //         // $scope.getList = getList;
-    //         $scope.updateGetList();
-    //     }, 1000);
-    // }
 
     $scope.updateGiveList = function() {
         var giveList = sharedExercises.getGiveList();
@@ -42,8 +16,6 @@ myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', '
     $scope.updateGetList = function() {
         var getList = sharedExercises.getGetList();
         $scope.getList = getList;
-        // check a console log.
-        // console.log("getList from updateGetList", getList);
         return getList;
 
     }
@@ -54,12 +26,18 @@ myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', '
         var bestMatch = list[0];
 
         if (listType === 'give') {
+            for (var l=0; l<list.length; l++) {
+            if (list[l]['dollars'] < bestMatch['dollars']) {
+                bestMatch = list[l];
+            }    
+                console.log(list[l]['dollars']);
+            }
             var i = 0;
             while (i<list.length) {
-                if (list[i]['dollars']>=post['dollars']) {
-                    console.log(list[i]['dollars'], "found it!");
+                if (post['dollars']>=list[i]['dollars']) {
+                    console.log(list[i]['dollars'], "found it ccc!");
                     match = list[i];
-                    // i = list.length;   
+ 
                     if (match['dollars']>bestMatch['dollars']) {
                         bestMatch = match;
                     }
@@ -69,14 +47,12 @@ myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', '
         } 
         else if (listType === 'get')
         {
-            // return a givePost
             var i = 0;
             while (i<list.length) {
-                if (list[i]['dollars']<=post['dollars']) {
+                if (post['dollars']<=list[i]['dollars']) {
                     console.log(list[i]['dollars'], "found it!");
                     match = list[i];
-                    // i = list.length;
-                    if (match['dollars']<bestMatch['dollars']) {
+                    if (match['dollars']>bestMatch['dollars']) {
                         bestMatch = match;
                     }
                 }
@@ -88,12 +64,16 @@ myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', '
     }
 
     $scope.addPost = function(list) {
-        // popup template for new Exercise
+        $scope.message = '';
         var match;
+        var offering = 'offering';
         console.log("addPost giveList", $scope.giveList);
         $scope.newPost = {};
         var myPopup = $ionicPopup.show({
-        template: "<input class='inputIndent' placeholder=' Flexi Dollars' type='number' ng-model='newPost.dollars'><input class='inputIndent' placeholder=' Phone Number' type='tel' ng-model='newPost.number'>",
+        template: "<input class='inputIndent' placeholder=' Flexi Dollars' type='number' ng-model='newPost.dollars'>" + 
+                  "<input class='inputIndent' placeholder=' Phone Number' type='tel' ng-model='newPost.number'>" + 
+                  "{{message}}"
+                           ,
         title: 'Post Offer',
         scope: $scope,
         buttons: [
@@ -102,9 +82,11 @@ myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', '
             text: '<b>Add</b>',
             type: 'button-positive',
             onTap: function(e) {
-              if (!$scope.newPost) {
+              if (!$scope.newPost['dollars']||!$scope.newPost['number']) {
+                $scope.message = "Please fill in all the fields."
                 e.preventDefault();
               } else {
+
                 $scope.newPost.firstName = "anonymous";
                 $scope.newPost.lastName = "post";
                 if (sharedExercises.getFirstname()) {
@@ -117,33 +99,35 @@ myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', '
                     newGiveList.push($scope.newPost);
                     sharedExercises.setGiveList(newGiveList); 
                     $scope.newGiveList = newGiveList;
-                    match = matchPost(list, $scope.updateGetList(), $scope.newPost);  
+                    match = matchPost(list, $scope.updateGetList(), $scope.newPost);
+                    offering = 'needs';  
                 }
                 else if (list === 'get') {
                     var newGetList = sharedExercises.getGetList();
                     newGetList.push($scope.newPost);
                     sharedExercises.setGetList(newGetList);
-                    $scope.getList = newGetList;
+                    $scope.newGetList = newGetList;
                     match = matchPost(list, $scope.updateGiveList(), $scope.newPost);
                 }
-                // console.log("adding post", list);
-                $scope.match = match;
-                if (match) {
-                    $scope.showAlert = function() {
-                    var alertPopup = $ionicPopup.alert({
-                        title: 'Don\'t eat that!',
-                        template: 'match {{match}}'
-                        // template: 'It might taste good'
-                    });
 
-                    alertPopup.then(function(res) {
-                            console.log("matched with", match);
-                        });
-                    };
-                }
-              }
+                $scope.match = match;
+                $scope.showAlert = function() {
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Matched with',
+                    template:
+                            '<strong>' + match['firstName'] + ' ' + match['lastName'] + '</strong> <br>'
+                            +  offering + ' $' + match['dollars'] + '<br>'
+                            + 'number: ' + '<span ng-href="tel:' + match['number'] + '">' + match['number'] + '</span>'
+                });
+
+                alertPopup.then(function(res) {
+                        console.log("POPUP matched with", match);
+                    });
+                };
+                $scope.showAlert();
+              } // end of else
             }
-          }
+          } //end of buttons second argument
          ]
         });
 
@@ -154,18 +138,11 @@ myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', '
         $timeout(function() {
            myPopup.close(); 
         }, 30000);
-
-        
-        // updateLists();
-
-    
     }
-
-
-
-
 }]); // Controller
 
 
 // put add anonymous option if not logged in.
 // add matching
+
+// phone number and dollar amount mandatory to add!

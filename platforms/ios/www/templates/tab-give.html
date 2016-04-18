@@ -1,7 +1,7 @@
 <ion-view view-title="Give" >
-  <ion-nav-bar class="bar-stable">
+  <ion-nav-bar class="bar-balanced">
     <ion-nav-buttons side="right">
-       <button class="button button-clear icon-left ion-plus-circled" ng-click="addPost('give')"></button>
+       <button class="button button-clear icon-left ion-gear-a" ng-click=""></button>
     </ion-nav-buttons>
   </ion-nav-bar>
   <ion-content class="">
@@ -10,6 +10,17 @@
       ${{post.dollars}} &nbsp;&nbsp;&nbsp; <span ng-href=" {{post.number}}">{{post.number}}</span> &nbsp;&nbsp;&nbsp; {{post.firstName}} {{post.lastName}}
       </ion-item>
     </ion-list>
+
   </div>
   </ion-content>
+    <!-- Button Starts -->
+ <div class="float-button">
+ <span class="height-fix">
+    <a class="content">
+      <i class="ion-plus-circled" ng-click="addPost('give')"> </i>
+    </a>
+    </span>
+ </div>
+<!-- Button Ends -->
+
 </ion-view>
