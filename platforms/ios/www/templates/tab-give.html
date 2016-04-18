@@ -1,0 +1,15 @@
+<ion-view view-title="Give" >
+  <ion-nav-bar class="bar-stable">
+    <ion-nav-buttons side="right">
+       <button class="button button-clear icon-left ion-plus-circled" ng-click="addPost('give')"></button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+  <ion-content class="">
+    <ion-list class="list">
+      <ion-item ng-repeat="post in updateGiveList() track by $index" class="item icon-left">
+      ${{post.dollars}} &nbsp;&nbsp;&nbsp; <span ng-href=" {{post.number}}">{{post.number}}</span> &nbsp;&nbsp;&nbsp; {{post.firstName}} {{post.lastName}}
+      </ion-item>
+    </ion-list>
+  </div>
+  </ion-content>
+</ion-view>

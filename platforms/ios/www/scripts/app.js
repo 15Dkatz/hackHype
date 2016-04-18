@@ -31,15 +31,27 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
   })
 
 
-  .state('tab.board', {
-      url: '/board',
+  // board *********
+  .state('tab.give', {
+      url: '/give',
       views: {
-        'tab-board': {
-          templateUrl: 'templates/tab-board.html',
+        'tab-give': {
+          templateUrl: 'templates/tab-give.html',
           controller: 'BoardController'
         }
       }
     })
+
+  .state('tab.get', {
+      url: '/get',
+      views: {
+        'tab-get': {
+          templateUrl: 'templates/tab-get.html',
+          controller: 'BoardController'
+        }
+      }
+    })
+  // **************
 
   .state('tab.account', {
     url: '/account',
@@ -63,7 +75,7 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
     controller: 'RegistrationController'
   })
 
-  $urlRouterProvider.otherwise('/tab/board');
+  $urlRouterProvider.otherwise('/tab/give');
 
 });
 
