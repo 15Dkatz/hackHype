@@ -17,7 +17,7 @@ myApp.service('sharedExercises', ['FIREBASE_URL', '$rootScope', '$firebaseAuth',
               if (snapshot.exists()) {
                   giveList = snapshot.val()["giveList"];
                   getList = snapshot.val()["getList"];
-                  console.log(giveList, "giveList");
+                  // console.log(giveList, "giveList");
               }
           }, function(errorObject) {
               console.log("The read failed: ", errorObject.code);
@@ -47,13 +47,13 @@ myApp.service('sharedExercises', ['FIREBASE_URL', '$rootScope', '$firebaseAuth',
               if (snapshot.exists()) {
                   giveList = snapshot.val()["giveList"];
                   getList = snapshot.val()["getList"];
-                  console.log(giveList, "giveList");
+                  // console.log(giveList, "giveList");
               }
           }, function(errorObject) {
               console.log("The read failed: ", errorObject.code);
           });
       }
-      console.log("returning giveList", giveList);
+      // console.log("returning giveList", giveList);
       return giveList;
     },
 
