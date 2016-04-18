@@ -76,7 +76,7 @@ myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', '
                     console.log(list[i]['dollars'], "found it!");
                     match = list[i];
                     // i = list.length;
-                    if (match['dollars']>bestMatch['dollars']) {
+                    if (match['dollars']<bestMatch['dollars']) {
                         bestMatch = match;
                     }
                 }
@@ -127,7 +127,20 @@ myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', '
                     match = matchPost(list, $scope.updateGiveList(), $scope.newPost);
                 }
                 // console.log("adding post", list);
-                console.log("matched with", match);
+                $scope.match = match;
+                if (match) {
+                    $scope.showAlert = function() {
+                    var alertPopup = $ionicPopup.alert({
+                        title: 'Don\'t eat that!',
+                        template: 'match {{match}}'
+                        // template: 'It might taste good'
+                    });
+
+                    alertPopup.then(function(res) {
+                            console.log("matched with", match);
+                        });
+                    };
+                }
               }
             }
           }
