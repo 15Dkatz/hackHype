@@ -14,24 +14,24 @@ myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', '
 
 
 
-    var updateLists = function() {
-        setTimeout(function() {
-            // var giveList = sharedExercises.getGiveList();
-            // $scope.giveList = giveList;
-            updateGiveList();
-            // var getList = sharedExercises.getGetList();
-            // $scope.getList = getList;
-            updateGetList();
-        }, 600);
-        setTimeout(function() {
-            // var giveList = sharedExercises.getGiveList();
-            // $scope.giveList = giveList;
-            updateGiveList();
-            // var getList = sharedExercises.getGetList();
-            // $scope.getList = getList;
-            updateGetList();
-        }, 1000);
-    }
+    // var updateLists = function() {
+    //     // setTimeout(function() {
+    //     //     // var giveList = sharedExercises.getGiveList();
+    //     //     // $scope.giveList = giveList;
+    //     //     updateGiveList();
+    //     //     // var getList = sharedExercises.getGetList();
+    //     //     // $scope.getList = getList;
+    //     //     updateGetList();
+    //     // }, 600);
+    //     setTimeout(function() {
+    //         // var giveList = sharedExercises.getGiveList();
+    //         // $scope.giveList = giveList;
+    //         $scope.updateGiveList();
+    //         // var getList = sharedExercises.getGetList();
+    //         // $scope.getList = getList;
+    //         $scope.updateGetList();
+    //     }, 1000);
+    // }
 
     $scope.updateGiveList = function() {
         var giveList = sharedExercises.getGiveList();
@@ -43,22 +43,58 @@ myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', '
         var getList = sharedExercises.getGetList();
         $scope.getList = getList;
         // check a console log.
-        console.log("getList from updateGetList", getList);
+        // console.log("getList from updateGetList", getList);
         return getList;
 
     }
-    // need to fix these.
 
-    // create an updateGiveList that returns the giveList for angular front-end updating
-    // as well as for a getList
+
+    var matchPost = function(listType, list, post) {
+        var match;
+        var bestMatch = list[0];
+
+        if (listType === 'give') {
+            var i = 0;
+            while (i<list.length) {
+                if (list[i]['dollars']>=post['dollars']) {
+                    console.log(list[i]['dollars'], "found it!");
+                    match = list[i];
+                    // i = list.length;   
+                    if (match['dollars']>bestMatch['dollars']) {
+                        bestMatch = match;
+                    }
+                }
+                i++;
+            }
+        } 
+        else if (listType === 'get')
+        {
+            // return a givePost
+            var i = 0;
+            while (i<list.length) {
+                if (list[i]['dollars']<=post['dollars']) {
+                    console.log(list[i]['dollars'], "found it!");
+                    match = list[i];
+                    // i = list.length;
+                    if (match['dollars']>bestMatch['dollars']) {
+                        bestMatch = match;
+                    }
+                }
+                i++;
+            }
+        }
+        console.log(bestMatch, "match");
+        return bestMatch;
+    }
 
     $scope.addPost = function(list) {
         // popup template for new Exercise
+        var match;
         console.log("addPost giveList", $scope.giveList);
         $scope.newPost = {};
         var myPopup = $ionicPopup.show({
-        template: "<input class='inputIndent' placeholder='flexi dollars' type='number' ng-model='newPost.dollars'><input class='inputIndent' placeholder='phone number' type='tel' ng-model='newPost.number'>",
-        title: 'Post',
+        template: "<input class='inputIndent' placeholder=' Flexi Dollars' type='number' ng-model='newPost.dollars'><input class='inputIndent' placeholder=' Phone Number' type='tel' ng-model='newPost.number'>",
+        title: 'Post Offer',
         scope: $scope,
         buttons: [
           { text: 'Cancel' },
@@ -80,15 +116,18 @@ myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', '
                     var newGiveList = sharedExercises.getGiveList();
                     newGiveList.push($scope.newPost);
                     sharedExercises.setGiveList(newGiveList); 
-                    $scope.newGiveList = newGiveList;  
+                    $scope.newGiveList = newGiveList;
+                    match = matchPost(list, $scope.updateGetList(), $scope.newPost);  
                 }
                 else if (list === 'get') {
                     var newGetList = sharedExercises.getGetList();
                     newGetList.push($scope.newPost);
                     sharedExercises.setGetList(newGetList);
                     $scope.getList = newGetList;
+                    match = matchPost(list, $scope.updateGiveList(), $scope.newPost);
                 }
-                console.log("adding post", list);
+                // console.log("adding post", list);
+                console.log("matched with", match);
               }
             }
           }
@@ -103,11 +142,13 @@ myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', '
            myPopup.close(); 
         }, 30000);
 
-        // $scope.giveList = sharedExercises.getGiveList;
-        updateLists();
+        
+        // updateLists();
 
     
     }
+
+
 
 
 }]); // Controller

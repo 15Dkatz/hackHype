@@ -1,7 +1,4 @@
-// angular.module('starter.services', [])
-
 myApp.service('sharedExercises', ['FIREBASE_URL', '$rootScope', '$firebaseAuth', function(FIREBASE_URL, $rootScope, $firebaseAuth) {
-  // var exerciseList = [];
   var ref = new Firebase(FIREBASE_URL);
   var auth = $firebaseAuth(ref);
   var boardListRef, userRef;
@@ -44,6 +41,18 @@ myApp.service('sharedExercises', ['FIREBASE_URL', '$rootScope', '$firebaseAuth',
 
   return {
     getGiveList: function() {
+      boardListRef = new Firebase(FIREBASE_URL);
+      if (boardListRef) {
+          boardListRef.once("value", function(snapshot) {
+              if (snapshot.exists()) {
+                  giveList = snapshot.val()["giveList"];
+                  getList = snapshot.val()["getList"];
+                  console.log(giveList, "giveList");
+              }
+          }, function(errorObject) {
+              console.log("The read failed: ", errorObject.code);
+          });
+      }
       console.log("returning giveList", giveList);
       return giveList;
     },
@@ -69,9 +78,6 @@ myApp.service('sharedExercises', ['FIREBASE_URL', '$rootScope', '$firebaseAuth',
     },
 
     setGetList: function(newList) {
-      // exerciseList = newList;
-      // console.log("giveList", giveList);
-      // giveList.push(newList);
       boardListRef.update({"getList": newList});
     },
 
