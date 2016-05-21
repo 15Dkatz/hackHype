@@ -336,7 +336,7 @@
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "flexiBack/flexiBack-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ionicframework.starter;
+				PRODUCT_BUNDLE_IDENTIFIER = com.davidtkatz.flexiBack;
 				PRODUCT_NAME = flexiBack;
 			};
 			name = Debug;
@@ -356,7 +356,7 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "flexiBack/flexiBack-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ionicframework.starter;
+				PRODUCT_BUNDLE_IDENTIFIER = com.davidtkatz.flexiBack;
 				PRODUCT_NAME = flexiBack;
 			};
 			name = Release;
