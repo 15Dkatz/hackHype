@@ -1,4 +1,3 @@
-## FlexiBack
+## HackHype
 
-*This application is built to solve the issue of unused and leftover currency in our University Meal Plan. This allows students to set up ways to exchange points on their meal plan. If you need more or have too much 'flexi', FlexiBack has got your back ;)
-
+Want a tip to get better a coding? Maybe you just want a funny joke to get you distracted from those annoying bugs. Or maybe you want to find some local events to find fellow hackers. Well, if so, get hyped for hackHype!
