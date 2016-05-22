@@ -31,7 +31,7 @@
       		<!-- <i class="">{{tip.votes}}</i> -->
       		{{tip.votes}}
       	</button>
-      	{{tip.name}}
+      		{{tip.name}}
 
       	<!-- <button class="button button-positive">
       		<i class="icon ion-ios-telephone"></i>
@@ -39,7 +39,7 @@
     		 <!-- <i class="icon ion-ios-telephone-outline"></i> -->
     		<!-- <button class="button button-positive"> -->
     		
-      	<i class="icon ion-ios-heart-outline" ng-click="addVote(tip)"></i>
+      	<i class="icon {{loveFill}} calm" ng-click="addVote(tip, $index)"></i>
     		<!-- </button> -->
     		<!-- <button class="button button-positive">
       		<i class="icon ion-ios-telephone"></i>

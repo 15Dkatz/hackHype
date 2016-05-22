@@ -1,14 +1,14 @@
-myApp.controller('TipsController', ['$scope', '$rootScope', 'Authentication', 'sharedPosts', '$ionicPopup', '$timeout', '$firebaseAuth', 'FIREBASE_URL',
-  function($scope, $rootScope, Authentication, sharedPosts, $ionicPopup, $timeout, $firebaseAuth, FIREBASE_URL) {
+myApp.controller('TipsController', ['$scope', '$rootScope', 'Authentication', 'sharedPosts', '$ionicPopup', '$timeout', '$firebaseArray', '$firebaseAuth', 'FIREBASE_URL',
+  function($scope, $rootScope, Authentication, sharedPosts, $ionicPopup, $timeout, $firebaseAuth, $firebaseArray, FIREBASE_URL) {
     var ref = new Firebase(FIREBASE_URL);
     var auth = $firebaseAuth(ref);
-
+    var tipRef = new Firebase(FIREBASE_URL + "tipsList/");
     // $scope.tipsList = "";
 
 
 
 
-    $scope.tipsList = sharedPosts.loadTipsList();
+    $scope.tipsList = $firebaseArray(tipRef);
 
 
 
@@ -35,8 +35,39 @@ myApp.controller('TipsController', ['$scope', '$rootScope', 'Authentication', 's
 
     }
 
-    $scope.addVote = function(tip) {
+    $scope.loved = false;
+    $scope.loveFill = "ion-ios-heart-outline";
 
+    $scope.addVote = function(tip, index) {
+        // upvote feature
+        // use sharedPosts to update
+        if ($scope.loved==false) {
+            $scope.loved = true;
+
+            console.log("tip name", tip.name, index);
+
+            var votes = tip.votes+1;
+            $scope.tipsList[index].votes = votes;
+            var tipRef = new Firebase(FIREBASE_URL + "tipsList/" + index);
+            tipRef.update({
+                "votes": votes
+            });
+
+            $scope.loveFill = "ion-ios-heart";
+
+        } else {
+            $scope.loved = false;
+
+            var votes = tip.votes-1;
+            $scope.tipsList[index].votes = votes;
+            var tipRef = new Firebase(FIREBASE_URL + "tipsList/" + index);
+            tipRef.update({
+                "votes": votes
+            });
+
+            $scope.loveFill = "ion-ios-heart-outline";
+            
+        }
     }
 
 
