@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		0207DA581B56EA530066E2B4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0207DA571B56EA530066E2B4 /* Images.xcassets */; };
 		1D3623260D0F684500981E51 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* AppDelegate.m */; };
@@ -17,9 +18,9 @@
 		4E45FA594889444CBC6079FC /* CDVDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = C8137D229DA3441AB84BCA13 /* CDVDevice.m */; };
 		7C0E9559187C4F04B5CFFF2D /* CDVLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C1F8DBA27F14FE9B0749874 /* CDVLogger.m */; };
 		D52F201989E0423C900C2DB1 /* CDVViewController+SplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = FDF0FDB9D5584DDDB4F41E33 /* CDVViewController+SplashScreen.m */; };
-		F8BBDA8CEE86412D9249F3CA /* CDVStatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 98E8BF9FC234478C9C031327 /* CDVStatusBar.m */; };
 		DE00D79D7FB04F00AA43C5A6 /* CDVLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 45344FE6E2314E65819C1D57 /* CDVLocation.m */; };
 		EF7EE39627484B1988ECD0F6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50845920B96C47489834E190 /* CoreLocation.framework */; };
+		F8BBDA8CEE86412D9249F3CA /* CDVStatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 98E8BF9FC234478C9C031327 /* CDVStatusBar.m */; };
 		F9321E01B04E4B7382F8CD7B /* CDVInAppBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7678EE60901047D1A8E9EF16 /* CDVInAppBrowser.m */; };
 /* End PBXBuildFile section */
 
@@ -58,7 +59,12 @@
 		3047A5111AB8059700498E2A /* build.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = build.xcconfig; path = cordova/build.xcconfig; sourceTree = SOURCE_ROOT; };
 		32CA4F630368D1EE00C91783 /* hackHype-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "hackHype-Prefix.pch"; sourceTree = "<group>"; };
 		37B3F2E45F254B7EABA0546B /* CDVStatusBar.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVStatusBar.h; path = "cordova-plugin-statusbar/CDVStatusBar.h"; sourceTree = "<group>"; };
+		45344FE6E2314E65819C1D57 /* CDVLocation.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CDVLocation.m; path = "cordova-plugin-geolocation/CDVLocation.m"; sourceTree = "<group>"; };
 		4836EDFC0E714E3991F4F480 /* CDVDevice.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVDevice.h; path = "cordova-plugin-device/CDVDevice.h"; sourceTree = "<group>"; };
+		50845920B96C47489834E190 /* CoreLocation.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		7678EE60901047D1A8E9EF16 /* CDVInAppBrowser.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CDVInAppBrowser.m; path = "cordova-plugin-inappbrowser/CDVInAppBrowser.m"; sourceTree = "<group>"; };
+		7BDEFE381E894F80A8F95A94 /* CDVInAppBrowser.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVInAppBrowser.h; path = "cordova-plugin-inappbrowser/CDVInAppBrowser.h"; sourceTree = "<group>"; };
+		8B14BA257E5B4F07A8D9AAFE /* CDVLocation.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVLocation.h; path = "cordova-plugin-geolocation/CDVLocation.h"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* hackHype-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "hackHype-Info.plist"; path = "hackHype/hackHype-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = SOURCE_ROOT; };
 		98E8BF9FC234478C9C031327 /* CDVStatusBar.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CDVStatusBar.m; path = "cordova-plugin-statusbar/CDVStatusBar.m"; sourceTree = "<group>"; };
 		C8137D229DA3441AB84BCA13 /* CDVDevice.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CDVDevice.m; path = "cordova-plugin-device/CDVDevice.m"; sourceTree = "<group>"; };
@@ -72,11 +78,6 @@
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = hackHype/config.xml; sourceTree = "<group>"; };
 		FC0FE36114974273B27A9831 /* CDVSplashScreen.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVSplashScreen.h; path = "cordova-plugin-splashscreen/CDVSplashScreen.h"; sourceTree = "<group>"; };
 		FDF0FDB9D5584DDDB4F41E33 /* CDVViewController+SplashScreen.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = "CDVViewController+SplashScreen.m"; path = "cordova-plugin-splashscreen/CDVViewController+SplashScreen.m"; sourceTree = "<group>"; };
-		45344FE6E2314E65819C1D57 /* CDVLocation.m */ = {isa = PBXFileReference; name = "CDVLocation.m"; path = "cordova-plugin-geolocation/CDVLocation.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
-		8B14BA257E5B4F07A8D9AAFE /* CDVLocation.h */ = {isa = PBXFileReference; name = "CDVLocation.h"; path = "cordova-plugin-geolocation/CDVLocation.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
-		50845920B96C47489834E190 /* CoreLocation.framework */ = {isa = PBXFileReference; name = "CoreLocation.framework"; path = "System/Library/Frameworks/CoreLocation.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
-		7678EE60901047D1A8E9EF16 /* CDVInAppBrowser.m */ = {isa = PBXFileReference; name = "CDVInAppBrowser.m"; path = "cordova-plugin-inappbrowser/CDVInAppBrowser.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
-		7BDEFE381E894F80A8F95A94 /* CDVInAppBrowser.h */ = {isa = PBXFileReference; name = "CDVInAppBrowser.h"; path = "cordova-plugin-inappbrowser/CDVInAppBrowser.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -351,8 +352,8 @@
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "hackHype/hackHype-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.davidtkatz.hackHype;
-				PRODUCT_NAME = "hackHype";
+				PRODUCT_BUNDLE_IDENTIFIER = hackhype.davidtkatz.com;
+				PRODUCT_NAME = hackHype;
 			};
 			name = Debug;
 		};
@@ -371,8 +372,8 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "hackHype/hackHype-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = com.davidtkatz.hackHype;
-				PRODUCT_NAME = "hackHype";
+				PRODUCT_BUNDLE_IDENTIFIER = hackhype.davidtkatz.com;
+				PRODUCT_NAME = hackHype;
 			};
 			name = Release;
 		};
@@ -398,9 +399,9 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = hackHype;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
-				PRODUCT_NAME = "hackHype";
 			};
 			name = Debug;
 		};
@@ -424,9 +425,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				PRODUCT_NAME = hackHype;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
-				PRODUCT_NAME = "hackHype";
 			};
 			name = Release;
 		};
