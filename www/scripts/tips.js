@@ -2,45 +2,91 @@ myApp.controller('TipsController', ['$scope', '$rootScope', 'Authentication', 's
   function($scope, $rootScope, Authentication, sharedPosts, $ionicPopup, $timeout, $firebaseAuth, $firebaseArray, FIREBASE_URL) {
     var ref = new Firebase(FIREBASE_URL);
     var auth = $firebaseAuth(ref);
-    var tipRef = new Firebase(FIREBASE_URL + "tipsList/");
+    // var tipsRef = new Firebase("https://hackhype.firebaseio.com/tipsList");
     // $scope.tipsList = "";
 
 
 
 
-    $scope.tipsList = $firebaseArray(tipRef);
+    // $scope.tipsList = $firebaseArray(tipsRef);
+    $scope.tipsList = [];
+    // $scope.tipsList.$loaded().then(function(data) {
+    //     $scope.setHearts();
+    // })
 
+    // $scope.loveFill = "ion-ios-heart-outline";
 
+    $scope.setHearts = function() {
+        console.log("running");
+        // for (var t=0; t<$scope.tipsList.length; t++) {
+        //     $scope.tipsList[t].loveFill = "ion-ios-heart-outline";
+        // }
 
-    // $scope.JokesList = sharedPosts.loadJokesList();
-
-
-    $scope.updateTipsList = function() {
-        var tipsList = sharedPosts.getTipsList();
-        $scope.tipsList = tipsList;
-
-        return tipsList;
+        // console.log($scope.tipsList);
+        // sharedPosts.setTipsList($scope.tipsList);
+        if (ref) {
+          ref.once("value", function(snapshot) {
+              if (snapshot.exists()) {
+                  // exerciseList = snapshot.val()["exerciseList"];
+                  // firstname = snapshot.val()["firstname"];
+                  $scope.tipsList = snapshot.val()["tipsList"];
+                  // console.log("exerciseList:", $scope.exerciseList);
+              }
+          }, function(errorObject) {
+              console.log("The read failed: ", errorObject.code);
+          });
+        }
     }
 
 
+
+    // $scope.updateTipsList = function() {
+    // $scope.tipsList = $firebaseArray;
+        // var tipsList = $scope.tipsList;
+        // return tipsList;
+    // }
+
+
     $scope.addTip = function(newTip) {
+        // console.log($scope.tipsList);
         console.log("newTip", newTip);
         var addTip = {
             date: Firebase.ServerValue.TIMESTAMP,
             name: newTip.name,
-            votes: 0
+            votes: 0,
+            loveFill: "ion-ios-heart-outline"
         }
         $scope.tipsList.push(addTip);
         sharedPosts.setTipsList($scope.tipsList);
 
+
     }
 
     $scope.loved = false;
-    $scope.loveFill = "ion-ios-heart-outline";
+    // $scope.loveFill = "ion-ios-heart-outline";
+    var recentTip = null;
+
+    // var touched = false;
 
     $scope.addVote = function(tip, index) {
-        // upvote feature
-        // use sharedPosts to update
+        $scope.loveFill = "";
+        $scope.loveFill = "";
+        // if (touched == false) {
+        //     console.log("attempting reset");
+        //     for (var t=0; t<$scope.tipsList.length; t++) {
+        //         $scope.tipsList[t].loveFill = "ion-ios-heart-outline";
+        //     }
+        // }
+
+        
+        // touched = true;
+
+        if (tip.loveFill == "ion-ios-heart") {
+            $scope.loved = true;
+        } else {
+            $scope.loved = false;
+        }
+
         if ($scope.loved==false) {
             $scope.loved = true;
 
@@ -53,7 +99,7 @@ myApp.controller('TipsController', ['$scope', '$rootScope', 'Authentication', 's
                 "votes": votes
             });
 
-            $scope.loveFill = "ion-ios-heart";
+            $scope.tipsList[index].loveFill = "ion-ios-heart";
 
         } else {
             $scope.loved = false;
@@ -65,18 +111,43 @@ myApp.controller('TipsController', ['$scope', '$rootScope', 'Authentication', 's
                 "votes": votes
             });
 
-            $scope.loveFill = "ion-ios-heart-outline";
-            
+            $scope.tipsList[index].loveFill = "ion-ios-heart-outline";
+
         }
+
+        $scope.bubbleSortTipsList();
     }
 
+    $scope.bubbleSortTipsList = function() {
 
-    // $scope.updateJokesList = function() {
-    //     var jokesList = sharedPosts.getJokesList();
-    //     $scope.jokesList = jokesList;
-    //     return jokesList;
+        console.log("attempting sort");
 
-    // }
+        var swapped;
+
+        var swappedList = $scope.tipsList;
+
+        do {
+            swapped = false;
+            for (var s=0; s<swapped.length-1; s++) {
+                if (swappedList[s].votes > swappedList[s+1].votes) {
+                    var temp = swappedList[s];
+                    swappedList[s] = swappedList[s+1];
+                    swappedList[s+1] = temp;
+                    swapped = true;
+                }
+            }
+
+        } while (swapped);
+
+        $scope.tipsList = swappedList;
+        ref.update({
+            "tipsList": $scope.tipsList
+        })
+        // update list to swapped list
+
+    }
+
+    
 
 
     // var matchPost = function(listType, list, post) {
@@ -172,106 +243,29 @@ myApp.controller('TipsController', ['$scope', '$rootScope', 'Authentication', 's
         }
     }
 
-    $scope.removePost = function(firstName, lastName, listType, index) {
+    // $scope.removePost = function(firstName, lastName, listType, index) {
         
-        var verifyFirstName = sharedPosts.getFirstname();
-        var verifyLastName = sharedPosts.getLastname();
+    //     var verifyFirstName = sharedPosts.getFirstname();
+    //     var verifyLastName = sharedPosts.getLastname();
 
-        if (firstName == verifyFirstName && lastName == verifyLastName) {
-            if (listType === 'give') {
-                console.log("removing from give");
-                $scope.giveList.splice(index, 1);
-                sharedPosts.setGiveList($scope.giveList);
-                // $scope.giveList = $scope.updateGiveList();
-            }
-            else if (listType === 'get') {
-                $scope.getList.splice(index, 1);
-                sharedPosts.setGetList($scope.getList);
-            }
-        }
-    }
+    //     if (firstName == verifyFirstName && lastName == verifyLastName) {
+    //         if (listType === 'give') {
+    //             console.log("removing from give");
+    //             $scope.giveList.splice(index, 1);
+    //             sharedPosts.setGiveList($scope.giveList);
+    //             // $scope.giveList = $scope.updateGiveList();
+    //         }
+    //         else if (listType === 'get') {
+    //             $scope.getList.splice(index, 1);
+    //             sharedPosts.setGetList($scope.getList);
+    //         }
+    //     }
+    // }
 
     // change showDelete to a method that toggles shouldShowDelete {
         // showsDelete on posts that have matching names
     // }
 
-    $scope.addPost = function(list) {
-        $scope.message = '';
-        var match;
-        var offering = 'offering';
-        // console.log("addPost giveList", $scope.giveList);
-        $scope.newPost = {};
-        var myPopup = $ionicPopup.show({
-        template: "<input class='inputIndent' placeholder='Write your post here' type='text' ng-model='newPost.text'>"
-                           ,
-        title: 'Post',
-        scope: $scope,
-        buttons: [
-          { text: 'Cancel' },
-          {
-            text: '<b>Add</b>',
-            type: 'button-calm',
-            onTap: function(e) {
-              if (!$scope.newPost['dollars']||!$scope.newPost['number']) {
-                $scope.message = "Please fill in all the fields."
-                e.preventDefault();
-              } else {
-
-                $scope.newPost.firstName = "Anonymous";
-                $scope.newPost.lastName = "Poster";
-                if (sharedPosts.getFirstname()) {
-                    $scope.newPost.firstName = sharedPosts.getFirstname();
-                    $scope.newPost.lastName = sharedPosts.getLastname();
-                };
-                
-                if (list === 'tips') {
-                    var newTipsList = sharedPosts.getTipsList();
-                    newTipsList.push($scope.newPost);
-                    sharedPosts.setTipsList(newGiveList); 
-                    $scope.newTipsList = newGiveList;
-                    // match = matchPost(list, $scope.updateTipsList(), $scope.newPost);
-                    offering = 'needs';  
-                }
-                else if (list === 'jokes') {
-                    var newJokesList = sharedPosts.getJokesList();
-                    newJokesList.push($scope.newPost);
-                    sharedPosts.setJokesList(newJokesList);
-                    $scope.newJokesList = newJokesList;
-                    // match = matchPost(list, $scope.updateGiveList(), $scope.newPost);
-                }
-
-                $scope.match = match;
-                $scope.showAlert = function() {
-                var alertPopup = $ionicPopup.alert({
-                    title: 'Matched with',
-                    template:
-                            '<strong>' + match['firstName'] + ' ' + match['lastName'] + '</strong> <br>'
-                            +  offering + ' $' + match['dollars'] + '<br>'
-                            + 'number: ' + '<span ng-href="tel:' + match['number'] + '">' + match['number'] + '</span>',
-                    // body:
-                        okText: '', // String (default: 'OK'). The text of the OK button.
-                        okType: 'button-balanced', // String (default: 'button-positive'). The type of the OK button.
-                });
-
-                alertPopup.then(function(res) {
-                        console.log("matched with", match);
-                    });
-                };
-                $scope.showAlert();
-              } // end of else
-            }
-          } //end of buttons second argument
-         ]
-        });
-
-        myPopup.then(function(res) {
-          console.log('Tapped!', res);
-        });
-
-        $timeout(function() {
-           myPopup.close(); 
-        }, 30000);
-    }
 }]); // Controller
 
 

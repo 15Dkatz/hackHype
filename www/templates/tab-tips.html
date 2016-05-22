@@ -1,4 +1,4 @@
-<ion-view view-title="Tips" >
+<ion-view view-title="Give a Coding Tip!" >
 	
   <!-- <ion-nav-buttons side="left">
     <button class="button button-clear icon-left ion-minus-circled" 
@@ -14,7 +14,7 @@
   <ion-content class="">
 		<div class="item item-input-inset">
     	<label class="item-input-wrapper">
-     	 <input type="text" placeholder="Give a coding tip!" ng-model="tip.name">
+     	 <input type="text" placeholder="Write something helpful" ng-model="tip.name">
     	</label>
     	<button class="button button-small" ng-click="addTip(tip)">
     	  Post
@@ -23,8 +23,8 @@
 
 
 
-    <div class="list" show-delete="data.shouldShowDelete">
-      <div ng-repeat="tip in updateTipsList() track by $index" class="item item-button-left item-icon-right">
+    <div class="list" show-delete="data.shouldShowDelete" ng-init="setHearts()">
+      <div ng-repeat="tip in tipsList track by $index" class="item item-button-left item-icon-right">
       <!-- ${{post.dollars}} &nbsp;&nbsp;&nbsp; <span ng-href="tel: {{post.number}}">{{post.number}}</span> &nbsp;&nbsp;&nbsp; {{post.firstName}} {{post.lastName}} -->
       <!-- <ion-delete-button class="ion-{{post.listProperty}}" ng-click="removePost(post.firstName, post.lastName, 'get', $index)"></ion-delete-button> -->
       	<button class="button button-calm">
@@ -39,7 +39,7 @@
     		 <!-- <i class="icon ion-ios-telephone-outline"></i> -->
     		<!-- <button class="button button-positive"> -->
     		
-      	<i class="icon {{loveFill}} calm" ng-click="addVote(tip, $index)"></i>
+      	<i class="icon {{tip.loveFill}} {{loveFill}} calm" ng-click="addVote(tip, $index)"></i>
     		<!-- </button> -->
     		<!-- <button class="button button-positive">
       		<i class="icon ion-ios-telephone"></i>

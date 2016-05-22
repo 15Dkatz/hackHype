@@ -40,9 +40,9 @@ myApp.service('sharedPosts', ['FIREBASE_URL', '$rootScope', '$firebaseAuth', fun
   })
 
   return {
-    getTipsList: function() {
-      return tipsList;
-    },
+    // getTipsList: function() {
+    //   // return tipsList;
+    // },
 
     loadTipsList: function() {
       tipsListRef = new Firebase(FIREBASE_URL);
@@ -91,7 +91,8 @@ myApp.service('sharedPosts', ['FIREBASE_URL', '$rootScope', '$firebaseAuth', fun
   	},
 
     setTipsList: function(newList) {
-      tipsListRef.update({"tipsList": newList});
+      // var tipsListRef = new Firebase(FIREBASE_URL);
+      ref.update({"tipsList": newList});
     },
 
     setJokesList: function(newList) {
