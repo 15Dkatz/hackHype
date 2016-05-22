@@ -31,11 +31,19 @@ myApp.controller('TipsController', ['$scope', '$rootScope', 'Authentication', 's
                   // firstname = snapshot.val()["firstname"];
                   $scope.tipsList = snapshot.val()["tipsList"];
                   // console.log("exerciseList:", $scope.exerciseList);
+
+                  //setting blank hearts.
+                  for (var s=0; s<$scope.tipsList.length; s++) {
+                    $scope.tipsList[s].loveFill = "ion-ios-heart-outline";
+                  }
+
               }
           }, function(errorObject) {
               console.log("The read failed: ", errorObject.code);
           });
         }
+
+
     }
 
 
@@ -128,8 +136,8 @@ myApp.controller('TipsController', ['$scope', '$rootScope', 'Authentication', 's
 
         do {
             swapped = false;
-            for (var s=0; s<swapped.length-1; s++) {
-                if (swappedList[s].votes > swappedList[s+1].votes) {
+            for (var s=0; s<swappedList.length-1; s++) {
+                if (swappedList[s].votes < swappedList[s+1].votes) {
                     var temp = swappedList[s];
                     swappedList[s] = swappedList[s+1];
                     swappedList[s+1] = temp;
