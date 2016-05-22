@@ -96,7 +96,7 @@ myApp.service('sharedPosts', ['FIREBASE_URL', '$rootScope', '$firebaseAuth', fun
     },
 
     setJokesList: function(newList) {
-      boardListRef.update({"jokesList": newList});
+      ref.update({"jokesList": newList});
     },
 
     updateAccountFirstname: function(newFirstname) {

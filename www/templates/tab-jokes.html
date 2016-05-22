@@ -1,35 +1,57 @@
-<ion-view view-title="Write a Coding Joke!" >
+<ion-view view-title="Crack a Coding Joke!" >
+  
   <!-- <ion-nav-buttons side="left">
     <button class="button button-clear icon-left ion-minus-circled" 
-    ng-click="toggleShowDelete('give')"
+    ng-click="toggleShowDelete('get')"
     ></button>
   </ion-nav-buttons>
   <ion-nav-bar class="bar-calm">
     <ion-nav-buttons side="right">
-       <button class="button button-clear icon-left ion-gear-a" ng-click=""></button>
+      <button class="button button-clear icon-left ion-gear-a" ng-click=""></button>
     </ion-nav-buttons>
-  </ion-nav-bar>
+  </ion-nav-bar> -->
+
   <ion-content class="">
-    <ion-list class="list" show-delete="data.shouldShowDelete">
-      <ion-item ng-repeat="post in updateGiveList() track by $index" class="item icon-left">
-      ${{post.dollars}} &nbsp;&nbsp;&nbsp; <span ng-href=" {{post.number}}">{{post.number}}</span> &nbsp;&nbsp;&nbsp; {{post.firstName}} {{post.lastName}}
-      <ion-delete-button class="ion-{{post.listProperty}}" ng-click="removePost(post.firstName, post.lastName, 'give', $index)"></ion-delete-button> -->
-      <!-- <ion-option-button class="button-positive" ng-click="share(item)">
-        Edit
-      </ion-option-button> -->
-      <!-- <ion-option-button class="button-{{listColor}}" ng-click="removePost(post.firstName, post.lastName, 'give', $index)">
-        {{post.deleteText}}
-      </ion-option-button> -->
-<!--       </ion-item>
-    </ion-list>
+    <div class="item item-input-inset">
+      <label class="item-input-wrapper">
+       <input type="text" placeholder="Something funny" ng-model="joke.name">
+      </label>
+      <button class="button button-small" ng-click="addJoke(joke)">
+        Post
+      </button>
+    </div>
 
-  </div> -->
+
+
+    <div class="list" show-delete="data.shouldShowDelete" ng-init="setHearts()">
+      <div ng-repeat="joke in jokesList track by $index" class="item item-button-left item-icon-right">
+      <!-- ${{post.dollars}} &nbsp;&nbsp;&nbsp; <span ng-href="tel: {{post.number}}">{{post.number}}</span> &nbsp;&nbsp;&nbsp; {{post.firstName}} {{post.lastName}} -->
+      <!-- <ion-delete-button class="ion-{{post.listProperty}}" ng-click="removePost(post.firstName, post.lastName, 'get', $index)"></ion-delete-button> -->
+        <button class="button button-calm">
+          <!-- <i class="">{{tip.votes}}</i> -->
+          {{joke.votes}}
+        </button>
+          {{joke.name}}
+
+        <!-- <button class="button button-positive">
+          <i class="icon ion-ios-telephone"></i>
+        </button> -->
+         <!-- <i class="icon ion-ios-telephone-outline"></i> -->
+        <!-- <button class="button button-positive"> -->
+        
+        <i class="icon {{joke.loveFill}} {{loveFill}} balanced" ng-click="addVote(joke, $index)"></i>
+        <!-- </button> -->
+        <!-- <button class="button button-positive">
+          <i class="icon ion-ios-telephone"></i>
+        </button> -->
+      </div>
+    <div>
+  </div>
   </ion-content>
-
-<!--  <div class="float-button">
+<!-- <div class="float-button">
  <span class="height-fix">
     <a class="content">
-      <i class="ion-plus-circled" ng-click="addPost('give')"> </i>
+      <i class="ion-plus-circled" ng-click="addPost('get')"> </i>
     </a>
     </span>
  </div> -->
