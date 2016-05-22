@@ -37,7 +37,7 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
       views: {
         'tab-tips': {
           templateUrl: 'templates/tab-tips.html',
-          controller: 'BoardController'
+          controller: 'TipsController'
         }
       }
     })
@@ -47,7 +47,7 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
       views: {
         'tab-jokes': {
           templateUrl: 'templates/tab-jokes.html',
-          controller: 'BoardController'
+          controller: 'JokesController'
         }
       }
     })

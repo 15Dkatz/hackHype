@@ -1,10 +1,18 @@
-myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', 'sharedPosts', '$ionicPopup', '$timeout', '$firebaseAuth', 'FIREBASE_URL',
+myApp.controller('TipsController', ['$scope', '$rootScope', 'Authentication', 'sharedPosts', '$ionicPopup', '$timeout', '$firebaseAuth', 'FIREBASE_URL',
   function($scope, $rootScope, Authentication, sharedPosts, $ionicPopup, $timeout, $firebaseAuth, FIREBASE_URL) {
     var ref = new Firebase(FIREBASE_URL);
     var auth = $firebaseAuth(ref);
 
+    // $scope.tipsList = "";
+
+
+
+
     $scope.tipsList = sharedPosts.loadTipsList();
-    $scope.JokesList = sharedPosts.loadJokesList();
+
+
+
+    // $scope.JokesList = sharedPosts.loadJokesList();
 
 
     $scope.updateTipsList = function() {
@@ -14,12 +22,30 @@ myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', '
         return tipsList;
     }
 
-    $scope.updateJokesList = function() {
-        var jokesList = sharedPosts.getJokesList();
-        $scope.jokesList = jokesList;
-        return jokesList;
+
+    $scope.addTip = function(newTip) {
+        console.log("newTip", newTip);
+        var addTip = {
+            date: Firebase.ServerValue.TIMESTAMP,
+            name: newTip.name,
+            votes: 0
+        }
+        $scope.tipsList.push(addTip);
+        sharedPosts.setTipsList($scope.tipsList);
 
     }
+
+    $scope.addVote = function(tip) {
+
+    }
+
+
+    // $scope.updateJokesList = function() {
+    //     var jokesList = sharedPosts.getJokesList();
+    //     $scope.jokesList = jokesList;
+    //     return jokesList;
+
+    // }
 
 
     // var matchPost = function(listType, list, post) {
