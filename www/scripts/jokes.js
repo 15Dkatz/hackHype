@@ -70,7 +70,7 @@ myApp.controller('JokesController', ['$scope', '$rootScope', 'Authentication', '
 
             var votes = tip.votes-1;
             $scope.jokesList[index].votes = votes;
-            var tipRef = new Firebase(FIREBASE_URL + "jokesList/" + index);
+            var jokeRef = new Firebase(FIREBASE_URL + "jokesList/" + index);
             jokeRef.update({
                 "votes": votes
             });

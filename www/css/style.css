@@ -60,3 +60,25 @@
 	text-align: center;
 	font-size: 1.6rem;
 }
+
+
+
+
+
+
+
+.item-button-right, a.item.item-button-right, button.item.item-button-right{
+  padding-right:0px !important
+}
+
+
+
+
+
+.time {
+	float: right;
+	/*position: absolute;*/
+	/*right: 100%;*/
+	margin-left: 100%;
+	/*font-size: 2rem;*/
+}
