@@ -16,11 +16,11 @@
           <span class="limitText">{{hackathon.name.text}}</span>
 
 
-        <button class="button button-clear">
-          <a href="{{hackathon.url}}">Open</a>
-        </button>
+          <a href="{{hackathon.url}}" ng-click="window.open('{{hackathon.url}}', '_system', 'location=yes', '_system')" class="button button-balanced">Link</a>
        </div>
     <div>
+
+   <!--  <div class="whiteLinks"><a href="http://www.eventbrite.com/e/dmc-hackathon-digital-factory-challenge-tickets-25492189826?aff=ebapi" ng-click="window.open('http://www.eventbrite.com/e/dmc-hackathon-digital-factory-challenge-tickets-25492189826?aff=ebapi', '_system', 'location=yes')">Test WL</a></div> -->
   </ion-content>
 </ion-view>
 

@@ -67,10 +67,10 @@
 
 
 
-.item-button-right, a.item.item-button-right, button.item.item-button-right{
+/*.item-button-right, a.item.item-button-right, button.item.item-button-right{
   padding-right:0px !important
 }
-
+*/
 
 
 
@@ -82,3 +82,19 @@
 	margin-left: 100%;
 	/*font-size: 2rem;*/
 }
+
+.whiteLinks a, .whiteLinks a {
+	color: #FFF;
+	text-decoration: none;
+}
+
+
+/*.limitLogo {
+	width: 10%;
+	height: 10%;
+}
+
+.limitText {
+	width: 60%;
+	margin-right: 20%;
+}*/
