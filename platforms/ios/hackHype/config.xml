@@ -53,6 +53,7 @@
     <feature name="InAppBrowser">
         <param name="ios-package" value="CDVInAppBrowser" />
     </feature>
+    <icon height="57" src="resources/ios/icon/icon.png" width="57" />
     <icon height="114" src="resources/ios/icon/icon@2x.png" width="114" />
     <icon height="40" src="resources/ios/icon/icon-40.png" width="40" />
     <icon height="80" src="resources/ios/icon/icon-40@2x.png" width="80" />
@@ -87,6 +88,8 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
+    <allow-intent href="*" />
+    <allow-navigation href="*" />
     <access launch-external="yes" origin="tel:*" />
     <access launch-external="yes" origin="mailto:*" />
     <preference name="webviewbounce" value="false" />
@@ -96,4 +99,5 @@
     <preference name="BackupWebStorage" value="none" />
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="3000" />
+    <icon src="resources/ios/icon/icon-small@3x.png" />
 </widget>
