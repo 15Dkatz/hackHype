@@ -6,8 +6,8 @@ myApp.service('sharedPosts', ['FIREBASE_URL', '$rootScope', '$firebaseAuth', fun
   var showLoginContent = true;
   var exTime=0;
 
-  var giveList = [];
-  var getList = [];
+  var tipsList = [];
+  var jokesList = [];
 
   auth.$onAuth(function(authUser) {
       if (authUser) {
@@ -15,9 +15,9 @@ myApp.service('sharedPosts', ['FIREBASE_URL', '$rootScope', '$firebaseAuth', fun
         if (boardListRef) {
           boardListRef.once("value", function(snapshot) {
               if (snapshot.exists()) {
-                  giveList = snapshot.val()["giveList"];
-                  getList = snapshot.val()["getList"];
-                  // console.log(giveList, "giveList");
+                  tipsList = snapshot.val()["tipsList"];
+                  jokesList = snapshot.val()["jokesList"];
+                  // console.log(TipsList, "TipsList");
               }
           }, function(errorObject) {
               console.log("The read failed: ", errorObject.code);
@@ -40,42 +40,42 @@ myApp.service('sharedPosts', ['FIREBASE_URL', '$rootScope', '$firebaseAuth', fun
   })
 
   return {
-    getGiveList: function() {
-      return giveList;
-    },
+    // getTipsList: function() {
+    //   // return tipsList;
+    // },
 
-    loadGiveList: function() {
-      boardListRef = new Firebase(FIREBASE_URL);
-      if (boardListRef) {
-          boardListRef.once("value", function(snapshot) {
+    loadTipsList: function() {
+      tipsListRef = new Firebase(FIREBASE_URL);
+      if (tipsListRef) {
+          tipsListRef.once("value", function(snapshot) {
               if (snapshot.exists()) {
-                  giveList = snapshot.val()["giveList"];
-                  // getList = snapshot.val()["getList"];
+                  tipsList = snapshot.val()["tipsList"];
+                  // JokesList = snapshot.val()["JokesList"];
               }
           }, function(errorObject) {
               console.log("The read failed: ", errorObject.code);
           });
       }
-      return giveList;
+      return tipsList;
     },
 
-    loadGetList: function() {
+    loadJokesList: function() {
       boardListRef = new Firebase(FIREBASE_URL);
       if (boardListRef) {
           boardListRef.once("value", function(snapshot) {
               if (snapshot.exists()) {
-                  // giveList = snapshot.val()["giveList"];
-                  getList = snapshot.val()["getList"];
+                  // TipsList = snapshot.val()["TipsList"];
+                  jokesList = snapshot.val()["jokesList"];
               }
           }, function(errorObject) {
               console.log("The read failed: ", errorObject.code);
           });
       }
-      return getList;
+      return jokesList;
     },
 
-    getGetList: function() {
-      return getList;
+    getJokesList: function() {
+      return jokesList;
     },
 
     getFirstname: function() {
@@ -90,12 +90,13 @@ myApp.service('sharedPosts', ['FIREBASE_URL', '$rootScope', '$firebaseAuth', fun
 	 	 return showLoginContent;
   	},
 
-    setGiveList: function(newList) {
-      boardListRef.update({"giveList": newList});
+    setTipsList: function(newList) {
+      // var tipsListRef = new Firebase(FIREBASE_URL);
+      ref.update({"tipsList": newList});
     },
 
-    setGetList: function(newList) {
-      boardListRef.update({"getList": newList});
+    setJokesList: function(newList) {
+      ref.update({"jokesList": newList});
     },
 
     updateAccountFirstname: function(newFirstname) {
@@ -110,8 +111,8 @@ myApp.service('sharedPosts', ['FIREBASE_URL', '$rootScope', '$firebaseAuth', fun
     	userRef.update({"email": newEmail});
     },
 
-    // setGiveList: function() {
-    // 	return giveList;
+    // setTipsList: function() {
+    // 	return TipsList;
     // },
 
     setExTime: function(newExtime) {

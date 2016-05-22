@@ -1,6 +1,26 @@
 <ion-view view-title="Get Yourself Out There!">
   <ion-content>
-    <button ng-click="testEventBrite()">TestEB</button>
+    <div class="item item-input-inset">
+      <label class="item-input-wrapper">
+       <input type="text" placeholder="Search your city" ng-model="city">
+      </label>
+      <button class="button button-small" ng-click="searchCity(city)">
+        Search
+      </button>
+    </div>
+    <div class="list" show-delete="data.shouldShowDelete">
+      <div ng-repeat="hackathon in hackathons.data.events track by $index" class="item item-button-right item-text-wrap">
+        <!-- <button class="button button-calm"> -->
+          <!-- <img src="{{hackathon.logo.url}} limitLogo"> -->
+        <!-- </button> -->
+          <span class="limitText">{{hackathon.name.text}}</span>
+
+
+        <button class="button button-clear">
+          <a href="{{hackathon.url}}">Open</a>
+        </button>
+       </div>
+    <div>
   </ion-content>
 </ion-view>
 

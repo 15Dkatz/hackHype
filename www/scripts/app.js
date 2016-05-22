@@ -88,19 +88,3 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/tab/tips');
 
 });
-
-// show error message if incorrect combination of password and username
-
-
-// Todo:
-
-// change to black-and-orange, giants color-way theme for more intensity
-
-// <!-- fill background of progressBar in tab-workout.html with grey or a picture -->
-
-// add latency for offline capability to maintain exercises for user when they lose connection
-// <!-- CREATE CUSTOM LIST --> in build.html
-// 
-        // <!-- open sidenav bar -->
-
-        // <!-- CREATE CUSTOM Category -->

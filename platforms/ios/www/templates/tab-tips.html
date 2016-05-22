@@ -1,0 +1,59 @@
+<ion-view view-title="Give a Coding Tip!" >
+	
+  <!-- <ion-nav-buttons side="left">
+    <button class="button button-clear icon-left ion-minus-circled" 
+    ng-click="toggleShowDelete('get')"
+    ></button>
+  </ion-nav-buttons>
+  <ion-nav-bar class="bar-calm">
+    <ion-nav-buttons side="right">
+      <button class="button button-clear icon-left ion-gear-a" ng-click=""></button>
+    </ion-nav-buttons>
+  </ion-nav-bar> -->
+
+  <ion-content class="">
+		<div class="item item-input-inset">
+    	<label class="item-input-wrapper">
+     	 <input type="text" placeholder="Write something helpful" ng-model="tip.name">
+    	</label>
+    	<button class="button button-small" ng-click="addTip(tip)">
+    	  Post
+    	</button>
+  	</div>
+
+
+
+    <div class="list" show-delete="data.shouldShowDelete" ng-init="setHearts()">
+      <div ng-repeat="tip in tipsList track by $index" class="item item-button-left item-icon-right item-text-wrap">
+      <!-- ${{post.dollars}} &nbsp;&nbsp;&nbsp; <span ng-href="tel: {{post.number}}">{{post.number}}</span> &nbsp;&nbsp;&nbsp; {{post.firstName}} {{post.lastName}} -->
+      <!-- <ion-delete-button class="ion-{{post.listProperty}}" ng-click="removePost(post.firstName, post.lastName, 'get', $index)"></ion-delete-button> -->
+      	<button class="button button-calm">
+      		<!-- <i class="">{{tip.votes}}</i> -->
+      		{{tip.votes}}
+      	</button>
+      		{{tip.name}}
+
+      	<!-- <button class="button button-positive">
+      		<i class="icon ion-ios-telephone"></i>
+    		</button> -->
+    		 <!-- <i class="icon ion-ios-telephone-outline"></i> -->
+    		<!-- <button class="button button-positive"> -->
+    		
+      	<i class="icon {{tip.loveFill}} {{loveFill}} balanced" ng-click="addVote(tip, $index)"></i>
+    		<!-- </button> -->
+    		<!-- <button class="button button-positive">
+      		<i class="icon ion-ios-telephone"></i>
+    		</button> -->
+      </div>
+    <div>
+  </div>
+  </ion-content>
+<!-- <div class="float-button">
+ <span class="height-fix">
+    <a class="content">
+      <i class="ion-plus-circled" ng-click="addPost('get')"> </i>
+    </a>
+    </span>
+ </div> -->
+
+</ion-view>

@@ -1,5 +1,5 @@
-var myApp = angular.module('giveFlexiApp', ['ionic', 'firebase'])
-   .constant('FIREBASE_URL', 'https://giveflexi.firebaseio.com/');
+var myApp = angular.module('hackHypeApp', ['ionic', 'firebase'])
+   .constant('FIREBASE_URL', 'https://hackhype.firebaseio.com/');
 
 
 myApp.run(function($ionicPlatform) {
@@ -32,22 +32,32 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 
 
   // board *********
-  .state('tab.give', {
-      url: '/give',
+  .state('tab.tips', {
+      url: '/tips',
       views: {
-        'tab-give': {
-          templateUrl: 'templates/tab-give.html',
-          controller: 'BoardController'
+        'tab-tips': {
+          templateUrl: 'templates/tab-tips.html',
+          controller: 'TipsController'
         }
       }
     })
 
-  .state('tab.get', {
-      url: '/get',
+  .state('tab.jokes', {
+      url: '/jokes',
       views: {
-        'tab-get': {
-          templateUrl: 'templates/tab-get.html',
-          controller: 'BoardController'
+        'tab-jokes': {
+          templateUrl: 'templates/tab-jokes.html',
+          controller: 'JokesController'
+        }
+      }
+    })
+
+  .state('tab.events', {
+      url: '/events',
+      views: {
+        'tab-events': {
+          templateUrl: 'templates/tab-events.html',
+          controller: 'EventsController'
         }
       }
     })
@@ -75,7 +85,7 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
     controller: 'RegistrationController'
   })
 
-  $urlRouterProvider.otherwise('/tab/give');
+  $urlRouterProvider.otherwise('/tab/tips');
 
 });
 

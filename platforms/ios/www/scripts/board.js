@@ -3,66 +3,66 @@ myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', '
     var ref = new Firebase(FIREBASE_URL);
     var auth = $firebaseAuth(ref);
 
-    $scope.giveList = sharedPosts.loadGiveList();
-    $scope.getList = sharedPosts.loadGetList();
+    $scope.tipsList = sharedPosts.loadTipsList();
+    $scope.JokesList = sharedPosts.loadJokesList();
 
 
-    $scope.updateGiveList = function() {
-        var giveList = sharedPosts.getGiveList();
-        $scope.giveList = giveList;
+    $scope.updateTipsList = function() {
+        var tipsList = sharedPosts.getTipsList();
+        $scope.tipsList = tipsList;
 
-        return giveList;
+        return tipsList;
     }
 
-    $scope.updateGetList = function() {
-        var getList = sharedPosts.getGetList();
-        $scope.getList = getList;
-        return getList;
+    $scope.updateJokesList = function() {
+        var jokesList = sharedPosts.getJokesList();
+        $scope.jokesList = jokesList;
+        return jokesList;
 
     }
 
 
-    var matchPost = function(listType, list, post) {
-        var match;
-        var bestMatch = list[0];
+    // var matchPost = function(listType, list, post) {
+    //     var match;
+    //     var bestMatch = list[0];
 
-        if (listType === 'give') {
-            for (var l=0; l<list.length; l++) {
-            if (list[l]['dollars'] < bestMatch['dollars']) {
-                bestMatch = list[l];
-            }    
-                console.log(list[l]['dollars']);
-            }
-            var i = 0;
-            while (i<list.length) {
-                if (post['dollars']>=list[i]['dollars']) {
-                    console.log(list[i]['dollars'], "found it ccc!");
-                    match = list[i];
+    //     if (listType === 'give') {
+    //         for (var l=0; l<list.length; l++) {
+    //         if (list[l]['dollars'] < bestMatch['dollars']) {
+    //             bestMatch = list[l];
+    //         }    
+    //             console.log(list[l]['dollars']);
+    //         }
+    //         var i = 0;
+    //         while (i<list.length) {
+    //             if (post['dollars']>=list[i]['dollars']) {
+    //                 console.log(list[i]['dollars'], "found it ccc!");
+    //                 match = list[i];
  
-                    if (match['dollars']>bestMatch['dollars']) {
-                        bestMatch = match;
-                    }
-                }
-                i++;
-            }
-        } 
-        else if (listType === 'get')
-        {
-            var i = 0;
-            while (i<list.length) {
-                if (post['dollars']<=list[i]['dollars']) {
-                    console.log(list[i]['dollars'], "found it!");
-                    match = list[i];
-                    if (match['dollars']>bestMatch['dollars']) {
-                        bestMatch = match;
-                    }
-                }
-                i++;
-            }
-        }
-        console.log(bestMatch, "match");
-        return bestMatch;
-    }
+    //                 if (match['dollars']>bestMatch['dollars']) {
+    //                     bestMatch = match;
+    //                 }
+    //             }
+    //             i++;
+    //         }
+    //     } 
+    //     else if (listType === 'get')
+    //     {
+    //         var i = 0;
+    //         while (i<list.length) {
+    //             if (post['dollars']<=list[i]['dollars']) {
+    //                 console.log(list[i]['dollars'], "found it!");
+    //                 match = list[i];
+    //                 if (match['dollars']>bestMatch['dollars']) {
+    //                     bestMatch = match;
+    //                 }
+    //             }
+    //             i++;
+    //         }
+    //     }
+    //     console.log(bestMatch, "match");
+    //     return bestMatch;
+    // }
 
     $scope.data = {
         listCanSwipe: true
@@ -142,20 +142,18 @@ myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', '
         $scope.message = '';
         var match;
         var offering = 'offering';
-        console.log("addPost giveList", $scope.giveList);
+        // console.log("addPost giveList", $scope.giveList);
         $scope.newPost = {};
         var myPopup = $ionicPopup.show({
-        template: "<input class='inputIndent' placeholder=' Flexi Dollars' type='number' ng-model='newPost.dollars'>" + 
-                  "<input class='inputIndent' placeholder=' Phone Number' type='tel' ng-model='newPost.number'>" + 
-                  "{{message}}"
+        template: "<input class='inputIndent' placeholder='Write your post here' type='text' ng-model='newPost.text'>"
                            ,
-        title: 'Post Offer',
+        title: 'Post',
         scope: $scope,
         buttons: [
           { text: 'Cancel' },
           {
             text: '<b>Add</b>',
-            type: 'button-balanced',
+            type: 'button-calm',
             onTap: function(e) {
               if (!$scope.newPost['dollars']||!$scope.newPost['number']) {
                 $scope.message = "Please fill in all the fields."
@@ -169,20 +167,20 @@ myApp.controller('BoardController', ['$scope', '$rootScope', 'Authentication', '
                     $scope.newPost.lastName = sharedPosts.getLastname();
                 };
                 
-                if (list === 'give') {
-                    var newGiveList = sharedPosts.getGiveList();
-                    newGiveList.push($scope.newPost);
-                    sharedPosts.setGiveList(newGiveList); 
-                    $scope.newGiveList = newGiveList;
-                    match = matchPost(list, $scope.updateGetList(), $scope.newPost);
+                if (list === 'tips') {
+                    var newTipsList = sharedPosts.getTipsList();
+                    newTipsList.push($scope.newPost);
+                    sharedPosts.setTipsList(newGiveList); 
+                    $scope.newTipsList = newGiveList;
+                    // match = matchPost(list, $scope.updateTipsList(), $scope.newPost);
                     offering = 'needs';  
                 }
-                else if (list === 'get') {
-                    var newGetList = sharedPosts.getGetList();
-                    newGetList.push($scope.newPost);
-                    sharedPosts.setGetList(newGetList);
-                    $scope.newGetList = newGetList;
-                    match = matchPost(list, $scope.updateGiveList(), $scope.newPost);
+                else if (list === 'jokes') {
+                    var newJokesList = sharedPosts.getJokesList();
+                    newJokesList.push($scope.newPost);
+                    sharedPosts.setJokesList(newJokesList);
+                    $scope.newJokesList = newJokesList;
+                    // match = matchPost(list, $scope.updateGiveList(), $scope.newPost);
                 }
 
                 $scope.match = match;

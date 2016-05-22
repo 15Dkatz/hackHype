@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		0207DA581B56EA530066E2B4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0207DA571B56EA530066E2B4 /* Images.xcassets */; };
 		1D3623260D0F684500981E51 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* AppDelegate.m */; };
@@ -19,6 +18,8 @@
 		7C0E9559187C4F04B5CFFF2D /* CDVLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C1F8DBA27F14FE9B0749874 /* CDVLogger.m */; };
 		D52F201989E0423C900C2DB1 /* CDVViewController+SplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = FDF0FDB9D5584DDDB4F41E33 /* CDVViewController+SplashScreen.m */; };
 		F8BBDA8CEE86412D9249F3CA /* CDVStatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 98E8BF9FC234478C9C031327 /* CDVStatusBar.m */; };
+		DE00D79D7FB04F00AA43C5A6 /* CDVLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 45344FE6E2314E65819C1D57 /* CDVLocation.m */; };
+		EF7EE39627484B1988ECD0F6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50845920B96C47489834E190 /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,9 @@
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = flexiBack/config.xml; sourceTree = "<group>"; };
 		FC0FE36114974273B27A9831 /* CDVSplashScreen.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVSplashScreen.h; path = "cordova-plugin-splashscreen/CDVSplashScreen.h"; sourceTree = "<group>"; };
 		FDF0FDB9D5584DDDB4F41E33 /* CDVViewController+SplashScreen.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = "CDVViewController+SplashScreen.m"; path = "cordova-plugin-splashscreen/CDVViewController+SplashScreen.m"; sourceTree = "<group>"; };
+		45344FE6E2314E65819C1D57 /* CDVLocation.m */ = {isa = PBXFileReference; name = "CDVLocation.m"; path = "cordova-plugin-geolocation/CDVLocation.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		8B14BA257E5B4F07A8D9AAFE /* CDVLocation.h */ = {isa = PBXFileReference; name = "CDVLocation.h"; path = "cordova-plugin-geolocation/CDVLocation.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		50845920B96C47489834E190 /* CoreLocation.framework */ = {isa = PBXFileReference; name = "CoreLocation.framework"; path = "System/Library/Frameworks/CoreLocation.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +82,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				301BF552109A68D80062928A /* libCordova.a in Frameworks */,
+				EF7EE39627484B1988ECD0F6 /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,6 +152,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				50845920B96C47489834E190 /* CoreLocation.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -184,6 +190,8 @@
 				37B3F2E45F254B7EABA0546B /* CDVStatusBar.h */,
 				E603C222E28B4E93A6EFE711 /* IonicKeyboard.m */,
 				C9AD2CC23F154B85AEA49A5D /* IonicKeyboard.h */,
+				45344FE6E2314E65819C1D57 /* CDVLocation.m */,
+				8B14BA257E5B4F07A8D9AAFE /* CDVLocation.h */,
 			);
 			name = Plugins;
 			path = flexiBack/Plugins;
@@ -226,7 +234,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 720;
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "flexiBack" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -304,6 +312,7 @@
 				D52F201989E0423C900C2DB1 /* CDVViewController+SplashScreen.m in Sources */,
 				F8BBDA8CEE86412D9249F3CA /* CDVStatusBar.m in Sources */,
 				4299455AE7894A01A6C31126 /* IonicKeyboard.m in Sources */,
+				DE00D79D7FB04F00AA43C5A6 /* CDVLocation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

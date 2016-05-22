@@ -11,11 +11,6 @@ myApp.factory('Authentication',
     if (authUser) {
       var userRef = new Firebase(FIREBASE_URL + 'users/' + authUser.uid);
       var userObj = $firebaseObject(userRef);
-      // user["email"]
-
-
-
-
 
       $rootScope.currentUser = userObj;
     } else {
@@ -30,7 +25,7 @@ myApp.factory('Authentication',
         email: user.email,
         password: user.password
       }).then(function(regUser) {
-        $window.location.href = '#/tab/board';
+        $window.location.href = '#/tab/tips';
       }).catch(function(error) {
        $rootScope.message = "Invalid username and password combination.";
        // if (error) {
