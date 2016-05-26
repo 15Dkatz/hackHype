@@ -9,12 +9,10 @@
     </author>
   <content src="index.html"/>
   <access origin="*"/>
-  <allow-intent href="*" />
-  <!-- <access origin="*" /> -->
-  <allow-navigation href="*"/>
   <access origin="tel:*" launch-external="yes"/>
   <access origin="mailto:*" launch-external="yes"/>
-  
+  <allow-intent href="*"/>
+  <allow-navigation href="*"/>
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>
   <preference name="DisallowOverscroll" value="true"/>
